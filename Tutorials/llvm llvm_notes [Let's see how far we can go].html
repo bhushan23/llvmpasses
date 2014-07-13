@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0059)http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-tw" lang="zh-tw" dir="ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>
+    llvm:llvm_notes    [Let's see how far we can go]
+  </title>
+
+  <meta name="generator" content="DokuWiki Release 2009-12-25c &quot;Lemming&quot;">
+<meta name="robots" content="index,follow">
+<meta name="date" content="2010-08-30T01:26:23+0800">
+<meta name="keywords" content="llvm,llvm_notes">
+<link rel="search" type="application/opensearchdescription+xml" href="http://163.25.101.87/~yen3/wiki/lib/exe/opensearch.php" title="Let&#39;s see how far we can go">
+<link rel="start" href="http://163.25.101.87/~yen3/wiki/">
+<link rel="contents" href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes&do=index" title="索引頁">
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="http://163.25.101.87/~yen3/wiki/feed.php">
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="http://163.25.101.87/~yen3/wiki/feed.php?mode=list&ns=llvm">
+<link rel="alternate" type="text/html" title="Plain HTML" href="http://163.25.101.87/~yen3/wiki/doku.php?do=export_xhtml&id=llvm:llvm_notes">
+<link rel="alternate" type="text/plain" title="Wiki Markup" href="http://163.25.101.87/~yen3/wiki/doku.php?do=export_raw&id=llvm:llvm_notes">
+<link rel="canonical" href="./llvm llvm_notes [Let's see how far we can go]_files/llvm llvm_notes [Let's see how far we can go].html">
+<link rel="stylesheet" media="all" type="text/css" href="./llvm llvm_notes [Let's see how far we can go]_files/css.php">
+<link rel="stylesheet" media="screen" type="text/css" href="./llvm llvm_notes [Let's see how far we can go]_files/css(1).php">
+<link rel="stylesheet" media="print" type="text/css" href="./llvm llvm_notes [Let's see how far we can go]_files/css(2).php">
+<script type="text/javascript" charset="utf-8"><!--//--><![CDATA[//><!--
+var NS='llvm';var JSINFO = {"id":"llvm:llvm_notes","namespace":"llvm"};
+//--><!]]></script>
+<script type="text/javascript" charset="utf-8" src="./llvm llvm_notes [Let's see how far we can go]_files/js.php"></script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		  
+//--><!]]></script><script src="./llvm llvm_notes [Let's see how far we can go]_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+
+var pageTracker = _gat._getTracker("UA-1287173-3");
+pageTracker._initData();
+pageTracker._trackPageview();
+		  
+//--><!]]></script>
+
+  <link rel="shortcut icon" href="http://163.25.101.87/~yen3/wiki/lib/tpl/arctic/images/favicon.ico">
+
+  
+</head>
+<body>
+<div id="wrapper">
+  <div class="dokuwiki">
+
+    
+    <div class="stylehead">
+      <div class="header">
+        <div class="pagename">
+          [[<a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes&do=backlink">llvm:llvm_notes</a>]]
+        </div>
+        <div class="logo">
+          <a href="http://163.25.101.87/~yen3/wiki/doku.php" name="dokuwiki__top" accesskey="h" title="[ALT+H]">Let's see how far we can go</a>        </div>
+      </div>
+    
+       
+      <div class="breadcrumbs">
+        <span class="bchead">目前的足跡:</span> <span class="bcsep">»</span> <span class="curid"><a href="./llvm llvm_notes [Let's see how far we can go]_files/llvm llvm_notes [Let's see how far we can go].html" class="breadcrumbs" title="llvm:llvm_notes">llvm_notes</a></span>      </div>
+      
+            </div>
+
+                  <div class="bar" id="bar__top">
+        <div class="bar-left">
+          <a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes&do=edit&rev=" class="action source" accesskey="v" rel="nofollow">顯示頁面來源</a><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes&do=revisions" class="action revisions" accesskey="o" rel="nofollow">舊版</a>        </div>
+        <div class="bar-right">
+          <a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes&do=recent" class="action recent" accesskey="r" rel="nofollow">最近更新</a><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes&do=index" class="action index" accesskey="x" rel="nofollow">索引頁</a><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes&do=login&sectok=0d696a58ef1780235b032c413a92da83" class="action login" rel="nofollow">登入</a><form action="http://163.25.101.87/~yen3/wiki/doku.php" accept-charset="utf-8" class="search" id="dw__search"><div class="no"><input type="hidden" name="do" value="search"><input type="text" id="qsearch__in" accesskey="f" name="id" class="edit" title="[F]"><input type="submit" value="搜尋" class="button" title="搜尋"><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>        </div>
+    </div>
+        
+    
+    
+          <div class="page">
+        <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header" style="cursor: pointer;"><span id="toc__toggle" class="toc_close" style="cursor: pointer;"><span>−</span></span>本頁目錄</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#llvm_notes" class="toc">LLVM Notes</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#basic_command" class="toc">Basic Command</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#write_an_pass" class="toc">Write An Pass</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#cfg_transveral" class="toc">CFG Transveral</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#def-use_use-def_chain" class="toc">def-use, use-def chain</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#dominator_tree_transveral" class="toc">Dominator Tree Transveral</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#iterator_pratice" class="toc">Iterator Pratice</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#example_-_hello" class="toc">Example - Hello</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#balabala" class="toc">balabala</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#其他文件" class="toc">其他文件</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#installation" class="toc">Installation</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+
+
+<h1><a name="llvm_notes" id="llvm_notes">LLVM Notes</a></h1>
+<div class="level1">
+
+</div>
+
+<h2><a name="basic_command" id="basic_command">Basic Command</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Convert C/C++ code to llvm IR<pre class="code bash">llvm-g++ <span class="re5">-emit-llvm</span> <span class="re5">-S</span> test.cpp <span class="re5">-o</span> test.ll</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Convert llvm IR to llvm bitcode<pre class="code bash">llvm-as test.ll <span class="re5">-o</span> test.bc</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Print Control Flow Graph<pre class="code bash">opt <span class="re5">-dot-cfg</span> test.bc</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Print Dominator Tree Graph<pre class="code bash">opt <span class="re5">-dot-dom</span> test.bc</pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Conver C++ code to C code <pre class="code bash">llvm-g++ <span class="re5">-emit-llvm</span> test.cpp <span class="re5">-o</span> program.bc <span class="re5">-c</span>
+llc <span class="re5">-march</span>=c program.bc <span class="re5">-o</span> program.c</pre>
+</div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="write_an_pass" id="write_an_pass">Write An Pass</a></h2>
+<div class="level2">
+
+</div>
+
+<h3><a name="cfg_transveral" id="cfg_transveral">CFG Transveral</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> code ,have include <pre class="code cpp"><span class="co2">#include "llvm/Support/CFG.h"</span></pre>
+<pre class="cpp code cpp" style="font-family:monospace;"><span class="kw2">virtual</span> <span class="kw4">bool</span> runOnFunction<span class="br0">(</span>Function <span class="sy3">&amp;</span>F<span class="br0">)</span> <span class="br0">{</span>
+    errs<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"Hello: "</span> <span class="sy1">&lt;&lt;</span> F.<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy4">;</span>
+&nbsp;
+    <span class="kw1">for</span><span class="br0">(</span>Function<span class="sy4">::</span><span class="me2">iterator</span> bi<span class="sy1">=</span>F.<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>, be <span class="sy1">=</span> F.<span class="me1">end</span><span class="br0">(</span><span class="br0">)</span><span class="sy4">;</span> bi <span class="sy3">!</span><span class="sy1">=</span> be<span class="sy4">;</span> bi<span class="sy2">++</span><span class="br0">)</span><span class="br0">{</span>
+        BasicBlock <span class="sy2">*</span>BB <span class="sy1">=</span> bi<span class="sy4">;</span>
+        errs<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> BB<span class="sy2">-</span><span class="sy1">&gt;</span>getName<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy4">;</span>
+        <span class="kw1">for</span><span class="br0">(</span>succ_iterator pi <span class="sy1">=</span> succ_begin<span class="br0">(</span>BB<span class="br0">)</span>, e <span class="sy1">=</span> succ_end<span class="br0">(</span>BB<span class="br0">)</span><span class="sy4">;</span> pi <span class="sy3">!</span><span class="sy1">=</span> e<span class="sy4">;</span> <span class="sy2">++</span>pi<span class="br0">)</span><span class="br0">{</span>
+            BasicBlock<span class="sy2">*</span> succ <span class="sy1">=</span> <span class="sy2">*</span>pi<span class="sy4">;</span>
+            errs<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\t</span>"</span> <span class="sy1">&lt;&lt;</span> succ<span class="sy2">-</span><span class="sy1">&gt;</span>getName<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy4">;</span>
+        <span class="br0">}</span>
+        <span class="co1">//for(pred_iterator pi = pred_begin(BB), e = pred_end(BB); pi != e; ++pi){</span>
+            <span class="co1">//BasicBlock* Pred = *pi;</span>
+            <span class="co1">//errs() &lt;&lt; "\t" &lt;&lt; Pred-&gt;getName() &lt;&lt; "\n";</span>
+        <span class="co1">//}</span>
+    <span class="br0">}</span></pre></div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="def-use_use-def_chain" id="def-use_use-def_chain">def-use, use-def chain</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> code have include <pre class="code c++"><span class="co2">#include "llvm/User.h"</span>
+<span class="co2">#include "llvm/Value.h"</span>
+<span class="co2">#include "llvm/Support/InstIterator.h"</span></pre>
+<pre class="code c++">        virtual bool runOnFunction<span class="br0">(</span>Function <span class="sy0">&amp;</span>F<span class="br0">)</span> <span class="br0">{</span>
+            std<span class="sy0">::</span><span class="me2">vector</span><span class="sy0">&lt;</span>Instruction<span class="sy0">*&gt;</span> worklist<span class="sy0">;</span>
+            <span class="kw1">for</span><span class="br0">(</span>inst_iterator I <span class="sy0">=</span> inst_begin<span class="br0">(</span>F<span class="br0">)</span><span class="sy0">,</span> E <span class="sy0">=</span> inst_end<span class="br0">(</span>F<span class="br0">)</span><span class="sy0">;</span> I <span class="sy0">!=</span> E<span class="sy0">;</span> <span class="sy0">++</span>I<span class="br0">)</span><span class="br0">{</span>
+                worklist.<span class="me1">push_back</span><span class="br0">(</span><span class="sy0">&amp;*</span>I<span class="br0">)</span><span class="sy0">;</span>
+            <span class="br0">}</span>
+&nbsp;
+            <span class="co1">// def-use chain for Instruction</span>
+            <span class="kw1">for</span><span class="br0">(</span>std<span class="sy0">::</span><span class="me2">vector</span><span class="sy0">&lt;</span>Instruction<span class="sy0">*&gt;::</span><span class="me2">iterator</span> iter <span class="sy0">=</span> worklist.<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> iter <span class="sy0">!=</span> worklist.<span class="me1">end</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="sy0">++</span>iter<span class="br0">)</span><span class="br0">{</span>
+                Instruction<span class="sy0">*</span> instr <span class="sy0">=</span> <span class="sy0">*</span>iter<span class="sy0">;</span>
+                errs<span class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;&lt;</span> <span class="st0">"def: "</span> <span class="sy0">&lt;&lt;*</span>instr <span class="sy0">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy0">;</span>
+                <span class="kw1">for</span><span class="br0">(</span>Value<span class="sy0">::</span><span class="me2">use_iterator</span> i <span class="sy0">=</span> instr<span class="sy0">-&gt;</span>use_begin<span class="br0">(</span><span class="br0">)</span><span class="sy0">,</span> ie <span class="sy0">=</span> instr<span class="sy0">-&gt;</span>use_end<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> i<span class="sy0">!=</span>ie<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">)</span><span class="br0">{</span>
+                    Value <span class="sy0">*</span>v <span class="sy0">=</span> <span class="sy0">*</span>i<span class="sy0">;</span>
+                    Instruction <span class="sy0">*</span>vi <span class="sy0">=</span> dyn_cast<span class="sy0">&lt;</span>Instruction<span class="sy0">&gt;</span><span class="br0">(</span><span class="sy0">*</span>i<span class="br0">)</span><span class="sy0">;</span>
+                    errs<span class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;&lt;</span> <span class="st0">"<span class="es1">\t</span><span class="es1">\t</span>"</span> <span class="sy0">&lt;&lt;</span> <span class="sy0">*</span>vi <span class="sy0">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy0">;</span>
+                <span class="br0">}</span>
+            <span class="br0">}</span>
+&nbsp;
+&nbsp;
+            <span class="co1">// use-def chain for Instruction</span>
+            <span class="kw1">for</span><span class="br0">(</span>std<span class="sy0">::</span><span class="me2">vector</span><span class="sy0">&lt;</span>Instruction<span class="sy0">*&gt;::</span><span class="me2">iterator</span> iter <span class="sy0">=</span> worklist.<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> iter <span class="sy0">!=</span> worklist.<span class="me1">end</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="sy0">++</span>iter<span class="br0">)</span><span class="br0">{</span>
+                Instruction<span class="sy0">*</span> instr <span class="sy0">=</span> <span class="sy0">*</span>iter<span class="sy0">;</span>
+                errs<span class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;&lt;</span> <span class="st0">"use: "</span> <span class="sy0">&lt;&lt;*</span>instr <span class="sy0">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy0">;</span>
+                <span class="kw1">for</span> <span class="br0">(</span>User<span class="sy0">::</span><span class="me2">op_iterator</span> i <span class="sy0">=</span> instr <span class="sy0">-&gt;</span> op_begin<span class="br0">(</span><span class="br0">)</span><span class="sy0">,</span> e <span class="sy0">=</span> instr <span class="sy0">-&gt;</span> op_end<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> i <span class="sy0">!=</span> e<span class="sy0">;</span> <span class="sy0">++</span>i<span class="br0">)</span> <span class="br0">{</span>
+                    Value <span class="sy0">*</span>v <span class="sy0">=</span> <span class="sy0">*</span>i<span class="sy0">;</span>
+                    Instruction <span class="sy0">*</span>vi <span class="sy0">=</span> dyn_cast<span class="sy0">&lt;</span>Instruction<span class="sy0">&gt;</span><span class="br0">(</span><span class="sy0">*</span>i<span class="br0">)</span><span class="sy0">;</span>
+                    errs<span class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;&lt;</span> <span class="st0">"<span class="es1">\t</span><span class="es1">\t</span>"</span> <span class="sy0">&lt;&lt;</span> <span class="sy0">*</span>vi <span class="sy0">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy0">;</span>
+                <span class="br0">}</span>
+            <span class="br0">}</span>
+            <span class="kw1">return</span> <span class="kw2">false</span><span class="sy0">;</span>
+        <span class="br0">}</span></pre>
+</div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="dominator_tree_transveral" id="dominator_tree_transveral">Dominator Tree Transveral</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> code, have to include <pre class="code c++"><span class="co2">#include "llvm/Analysis/Dominators.h"</span></pre>
+<pre class="code c++">        virtual bool runOnFunction<span class="br0">(</span>Function <span class="sy0">&amp;</span>F<span class="br0">)</span> <span class="br0">{</span>
+            errs<span class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;&lt;</span> <span class="st0">"Hello: "</span> <span class="sy0">&lt;&lt;</span> F.<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy0">;</span>
+&nbsp;
+            <span class="co1">//LoopInfo &amp;LI = getAnalysis&lt;LoopInfo&gt;();</span>
+            DominatorTree <span class="sy0">&amp;</span>DT <span class="sy0">=</span> getAnalysis<span class="sy0">&lt;</span>DominatorTree<span class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+            <span class="kw1">for</span><span class="br0">(</span>Function<span class="sy0">::</span><span class="me2">iterator</span> bbi <span class="sy0">=</span> F.<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">,</span> bbie <span class="sy0">=</span> F.<span class="me1">end</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> bbi <span class="sy0">!=</span> bbie<span class="sy0">;</span> bbi<span class="sy0">++</span><span class="br0">)</span><span class="br0">{</span>
+                BasicBlock <span class="sy0">*</span>BBI <span class="sy0">=</span> bbi<span class="sy0">;</span>
+                <span class="kw1">for</span><span class="br0">(</span>Function<span class="sy0">::</span><span class="me2">iterator</span> bbj <span class="sy0">=</span> F.<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">,</span> bbje <span class="sy0">=</span> F.<span class="me1">end</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> bbj <span class="sy0">!=</span> bbje<span class="sy0">;</span> bbj<span class="sy0">++</span><span class="br0">)</span><span class="br0">{</span>
+                    BasicBlock <span class="sy0">*</span>BBJ <span class="sy0">=</span> bbj<span class="sy0">;</span>
+                    <span class="kw1">if</span><span class="br0">(</span>BBI <span class="sy0">!=</span> BBJ <span class="sy0">&amp;&amp;</span> DT.<span class="me1">dominates</span><span class="br0">(</span>BBI<span class="sy0">,</span> BBJ<span class="br0">)</span><span class="br0">)</span><span class="br0">{</span>
+                        errs<span class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;&lt;</span> BBI<span class="sy0">-&gt;</span>getName<span class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;&lt;</span> <span class="st0">" "</span> <span class="sy0">&lt;&lt;</span> BBJ<span class="sy0">-&gt;</span>getName<span class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy0">;</span>
+                    <span class="br0">}</span>
+                <span class="br0">}</span>
+            <span class="br0">}</span>
+&nbsp;
+            <span class="kw1">return</span> <span class="kw2">false</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+&nbsp;
+        <span class="co1">// remember to require DominatorTree</span>
+        virtual <span class="kw4">void</span> getAnalysisUsage<span class="br0">(</span>AnalysisUsage <span class="sy0">&amp;</span>AU<span class="br0">)</span> <span class="kw4">const</span> <span class="br0">{</span>
+            AU.<span class="me1">setPreservesAll</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+            AU.<span class="me1">addRequired</span><span class="sy0">&lt;</span>DominatorTree<span class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span> </pre>
+</div>
+</li>
+<li class="level1"><div class="li"> At the same, we can use AU.addRequired&lt;LoopInfor&gt; to use LoopInfor class</div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="iterator_pratice" id="iterator_pratice">Iterator Pratice</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> as the following<pre class="code cpp">    <span class="kw2">virtual</span> <span class="kw4">bool</span> runOnFunction<span class="br0">(</span>Function <span class="sy3">&amp;</span>F<span class="br0">)</span> <span class="br0">{</span>
+      errs<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"Hello: "</span> <span class="sy1">&lt;&lt;</span> F.<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy4">;</span>
+&nbsp;
+      <span class="co1">// Iterator All Basic Block for Function</span>
+      <span class="co1">//for (Function::iterator i = F.begin(), e = F.end(); i!=e; ++i){</span>
+          <span class="co1">//errs() &lt;&lt; i-&gt;getName() &lt;&lt; i-&gt;size() &lt;&lt; "\n";</span>
+      <span class="co1">//}</span>
+&nbsp;
+      <span class="co1">// Iterator All Instruction for Function</span>
+      <span class="co1">//for(inst_iterator i = inst_begin(F), e = inst_end(F); i!=e; ++i){</span>
+          <span class="co1">//errs() &lt;&lt; *i &lt;&lt; "\n";</span>
+      <span class="co1">//}</span>
+&nbsp;
+      <span class="kw1">for</span><span class="br0">(</span>Function<span class="sy4">::</span><span class="me2">iterator</span> bi <span class="sy1">=</span> F.<span class="me1">begin</span><span class="br0">(</span><span class="br0">)</span>, be <span class="sy1">=</span> F.<span class="me1">end</span><span class="br0">(</span><span class="br0">)</span><span class="sy4">;</span> bi <span class="sy3">!</span><span class="sy1">=</span> be<span class="sy4">;</span> <span class="sy2">++</span>bi<span class="br0">)</span><span class="br0">{</span>
+          errs<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> bi<span class="sy2">-</span><span class="sy1">&gt;</span>getName<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\t</span>"</span> <span class="sy1">&lt;&lt;</span> bi<span class="sy2">-</span><span class="sy1">&gt;</span>size<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy4">;</span>
+          <span class="kw1">for</span><span class="br0">(</span>BasicBlock<span class="sy4">::</span><span class="me2">iterator</span> ii <span class="sy1">=</span> bi<span class="sy2">-</span><span class="sy1">&gt;</span>begin<span class="br0">(</span><span class="br0">)</span>, ie <span class="sy1">=</span> bi<span class="sy2">-</span><span class="sy1">&gt;</span>end<span class="br0">(</span><span class="br0">)</span><span class="sy4">;</span> ii <span class="sy3">!</span><span class="sy1">=</span> ie<span class="sy4">;</span> <span class="sy2">++</span>ii<span class="br0">)</span><span class="br0">{</span>
+              errs<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="sy2">*</span>ii <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy4">;</span>
+          <span class="br0">}</span>
+          errs<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy4">;</span>
+      <span class="br0">}</span>
+&nbsp;
+      <span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+    <span class="br0">}</span>
+  <span class="br0">}</span><span class="sy4">;</span></pre>
+</div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="example_-_hello" id="example_-_hello">Example - Hello</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> Run with Hello In Linux<pre class="code bash">opt <span class="re5">-load</span> ~<span class="sy0">/</span>usr<span class="sy0">/</span>src<span class="sy0">/</span>llvm-2.7<span class="sy0">/</span>Debug<span class="sy0">/</span>lib<span class="sy0">/</span>Hello.so <span class="re5">-hello</span></pre>
+
+<p>
+ In Mac OSX 
+</p>
+<pre class="code bash">opt <span class="re5">-load</span> ~<span class="sy0">/</span>usr<span class="sy0">/</span>src<span class="sy0">/</span>llvm-2.7<span class="sy0">/</span>Debug<span class="sy0">/</span>lib<span class="sy0">/</span>Hello.dylib <span class="re5">-hello</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> Makefile<dl class="code">
+<dt><a href="http://163.25.101.87/~yen3/wiki/doku.php?do=export_code&id=llvm:llvm_notes&codeblock=13" title="下載程式碼片段" class="mediafile mf_">Makefile</a></dt>
+<dd><pre class="code make"><span class="co1"># Makefile for hello pass</span>
+&nbsp;
+<span class="co1"># Path to top level of LLVM hierarchy</span>
+LEVEL <span class="sy0">=</span> <span class="sy0">../../..</span>
+&nbsp;
+<span class="co1"># Name of the library to build</span>
+LIBRARYNAME <span class="sy0">=</span> Hello
+&nbsp;
+<span class="co1"># Make the shared library become a loadable module so the tools can </span>
+<span class="co1"># dlopen/dlsym on the resulting library.</span>
+LOADABLE_MODULE <span class="sy0">=</span> <span class="nu0">1</span>
+&nbsp;
+<span class="co1"># Tell the build system which LLVM libraries your pass needs. You'll probably</span>
+<span class="co1"># need at least LLVMSystem.a, LLVMSupport.a, LLVMCore.a but possibly several</span>
+<span class="co1"># others too.</span>
+<span class="co1">#LLVMLIBS = LLVMCore.a LLVMSupport.a LLVMSystem.a</span>
+&nbsp;
+<span class="co1"># Include the makefile implementation stuff</span>
+<span class="kw1">include</span> <span class="sy0">$</span><span class="br0">(</span><span class="re2">LEVEL</span><span class="br0">)</span><span class="sy0">/</span>Makefile<span class="sy0">.</span>common</pre>
+</dd></dl>
+</div>
+</li>
+<li class="level1"><div class="li"> Hello.cpp<dl class="code">
+<dt><a href="http://163.25.101.87/~yen3/wiki/doku.php?do=export_code&id=llvm:llvm_notes&codeblock=14" title="下載程式碼片段" class="mediafile mf_cpp">Hello.cpp</a></dt>
+<dd><pre class="code cpp"><span class="co2">#include "llvm/Pass.h"</span>
+<span class="co2">#include "llvm/Function.h"</span>
+<span class="co2">#include "llvm/Support/raw_ostream.h"</span>
+&nbsp;
+<span class="kw2">using</span> <span class="kw2">namespace</span> llvm<span class="sy4">;</span>
+&nbsp;
+<span class="kw2">namespace</span> <span class="br0">{</span>
+  <span class="kw4">struct</span> Hello <span class="sy4">:</span> <span class="kw2">public</span> FunctionPass <span class="br0">{</span>
+&nbsp;
+    <span class="kw4">static</span> <span class="kw4">char</span> ID<span class="sy4">;</span>
+    Hello<span class="br0">(</span><span class="br0">)</span> <span class="sy4">:</span> FunctionPass<span class="br0">(</span><span class="sy3">&amp;</span>ID<span class="br0">)</span> <span class="br0">{</span><span class="br0">}</span>
+&nbsp;
+    <span class="kw2">virtual</span> <span class="kw4">bool</span> runOnFunction<span class="br0">(</span>Function <span class="sy3">&amp;</span>F<span class="br0">)</span> <span class="br0">{</span>
+      errs<span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"Hello: "</span> <span class="sy1">&lt;&lt;</span> F.<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span> <span class="sy1">&lt;&lt;</span> <span class="st0">"<span class="es1">\n</span>"</span><span class="sy4">;</span>
+      <span class="kw1">return</span> <span class="kw2">false</span><span class="sy4">;</span>
+    <span class="br0">}</span>
+  <span class="br0">}</span><span class="sy4">;</span>
+&nbsp;
+  <span class="kw4">char</span> Hello<span class="sy4">::</span><span class="me2">ID</span> <span class="sy1">=</span> <span class="nu0">0</span><span class="sy4">;</span>
+  RegisterPass<span class="sy1">&lt;</span>Hello<span class="sy1">&gt;</span> X<span class="br0">(</span><span class="st0">"hello"</span>, <span class="st0">"Hello World Pass"</span><span class="br0">)</span><span class="sy4">;</span>
+<span class="br0">}</span></pre>
+</dd></dl>
+</div>
+</li>
+</ul>
+
+</div>
+
+<h3><a name="balabala" id="balabala">balabala</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> llvm-config</div>
+<ul>
+<li class="level2"><div class="li"> How to use example <pre class="code bash"><span class="kw2">g++</span> <span class="re5">-c</span> <span class="re5">-g</span> <span class="re5">-O2</span> <span class="re5">-Wall</span>  main.cpp <span class="re5">-o</span> main.o <span class="sy0">`</span>llvm-config <span class="re5">--cxxflags</span> <span class="re5">--ldflags</span> <span class="re5">--libs</span> nativecodegen bitreader bitwriter<span class="sy0">`</span> 
+<span class="kw2">g++</span> <span class="re5">-g</span> <span class="re5">-O2</span> <span class="re5">-Wall</span>  main.o  <span class="re5">-o</span> llvm_test  <span class="sy0">`</span>llvm-config <span class="re5">--cxxflags</span> <span class="re5">--ldflags</span> <span class="re5">--libs</span> nativecodegen bitreader bitwriter<span class="sy0">`</span> </pre>
+</div>
+</li>
+<li class="level2"><div class="li"> list <pre class="code bash">$  llvm-config <span class="re5">--components</span>
+all alpha alphaasmprinter alphacodegen alphainfo analysis archive arm armasmparser armasmprinter armcodegen arminfo asmparser asmprinter backend bitreader bitwriter blackfin blackfinasmprinter blackfincodegen blackfininfo cbackend cbackendinfo cellspu cellspuasmprinter cellspucodegen cellspuinfo codegen core cppbackend cppbackendinfo engine executionengine instcombine instrumentation interpreter ipa ipo jit linker mblaze mblazeasmprinter mblazecodegen mblazeinfo mc mcparser mips mipsasmprinter mipscodegen mipsinfo msil msilinfo msp430 msp430asmprinter msp430codegen msp430info native nativecodegen pic16 pic16asmprinter pic16codegen pic16info pic16passes powerpc powerpcasmprinter powerpccodegen powerpcinfo scalaropts selectiondag sparc sparcasmprinter sparccodegen sparcinfo support system systemz systemzasmprinter systemzcodegen systemzinfo target transformutils x86 x86asmparser x86asmprinter x86codegen x86disassembler x86info xcore xcoreasmprinter xcorecodegen xcoreinfo</pre>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="其他文件" id="其他文件">其他文件</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> <a href="http://coolshell.cn/articles/1547.html" class="urlextern" title="http://coolshell.cn/articles/1547.html" rel="nofollow">使用Flex Bison 和LLVM编写自己的编译器</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="http://dreamhead.blogbus.com/logs/62862705.html" class="urlextern" title="http://dreamhead.blogbus.com/logs/62862705.html" rel="nofollow"> Hello，LLVM</a></div>
+</li>
+</ul>
+
+</div>
+
+<h2><a name="installation" id="installation">Installation</a></h2>
+<div class="level2">
+<ul>
+<li class="level1"><div class="li"> Run the Following <pre class="code bash"><span class="kw2">mkdir</span> build
+<span class="kw3">cd</span> build
+..<span class="sy0">/</span>configure <span class="re5">--prefix</span>=<span class="sy0">/</span>home<span class="sy0">/</span>yen3<span class="sy0">/</span>usr<span class="sy0">/</span> <span class="re5">--enable-debug-runtime</span>=<span class="kw2">yes</span> <span class="re5">--enable-debug-symbols</span>=<span class="kw2">yes</span> <span class="re5">--enable-optimized</span> <span class="re5">--enable-assertions</span> <span class="co0"># --disable-optimized</span>
+<span class="kw2">make</span>
+<span class="kw2">make</span> <span class="kw2">install</span></pre>
+</div>
+</li>
+<li class="level1"><div class="li"> llvm-gcc-4.2 <pre class="code bash"><span class="kw2">mkdir</span> build
+<span class="kw3">cd</span> build
+..<span class="sy0">/</span>configure <span class="re5">--prefix</span>=<span class="sy0">/</span>home<span class="sy0">/</span>yen3<span class="sy0">/</span>usr <span class="re5">--enable-languages</span>=c,<span class="kw2">c++</span> \
+                          <span class="re5">--enable-checking</span> <span class="re5">--enable-llvm</span>=<span class="sy0">/</span>home<span class="sy0">/</span>yen3<span class="sy0">/</span>usr<span class="sy0">/</span>src<span class="sy0">/</span>llvm<span class="sy0">/</span>llvm-2.7<span class="sy0">/</span>build \
+			  <span class="re5">--disable-bootstrap</span> <span class="re5">--disable-multilib</span> <span class="re5">--program-prefix</span>=llvm-
+&nbsp;
+<span class="kw2">make</span>
+<span class="kw2">make</span> <span class="kw2">install</span></pre>
+</div>
+</li>
+</ul>
+
+</div>
+
+      </div>
+    
+      <div class="stylefoot">
+        <div class="meta">
+          <div class="user">
+                    </div>
+          <div class="doc">
+          llvm/llvm_notes.txt · 上一次變更: 2010/08/30 01:26 來自 yen3          </div>
+        </div>
+      </div>
+
+    <div class="clearer"></div>
+
+    
+                <div class="bar" id="bar__bottom">
+      <div class="bar-left">
+        <a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes&do=edit&rev=" class="action source" accesskey="v" rel="nofollow">顯示頁面來源</a><a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes&do=revisions" class="action revisions" accesskey="o" rel="nofollow">舊版</a>      </div>
+      <div class="bar-right">
+        <a href="http://163.25.101.87/~yen3/wiki/doku.php?id=llvm:llvm_notes#dokuwiki__top" class="action top" accesskey="x">回到頁頂</a>      </div>
+    </div>
+    <div class="clearer"></div>
+            
+    <div align="center" class="footerinc">
+  <div class="license"><a href="http://creativecommons.org/licenses/by-nc-sa/3.0/" rel="license"><img src="./llvm llvm_notes [Let's see how far we can go]_files/cc-by-nc-sa.png" class="medialeft licbutton" alt="CC Attribution-Noncommercial-Share Alike 3.0 Unported"></a> </div>
+  <a target="_blank" href="http://www.chimeric.de/" title="www.chimeric.de"><img src="./llvm llvm_notes [Let's see how far we can go]_files/button-chimeric-de.png" width="80" height="15" alt="www.chimeric.de" border="0"></a>
+
+  <a target="_blank" href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS"><img src="./llvm llvm_notes [Let's see how far we can go]_files/button-css.png" width="80" height="15" alt="Valid CSS" border="0"></a>
+
+  <a target="_blank" href="http://wiki.splitbrain.org/wiki:dokuwiki" title="Driven by DokuWiki"><img src="./llvm llvm_notes [Let's see how far we can go]_files/button-dw.png" width="80" height="15" alt="Driven by DokuWiki" border="0"></a>
+
+  <a target="_blank" href="http://www.firefox-browser.de/" title="do yourself a favour and use a real browser - get firefox"><img src="./llvm llvm_notes [Let's see how far we can go]_files/button-firefox.png" width="80" height="15" alt="do yourself a favour and use a real browser - get firefox!!" border="0"></a>
+  
+  <a target="_blank" href="http://163.25.101.87/~yen3/wiki/feed.php" title="Recent changes RSS feed"><img src="./llvm llvm_notes [Let's see how far we can go]_files/button-rss.png" width="80" height="15" alt="Recent changes RSS feed" border="0"></a>
+
+  <a target="_blank" href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0"><img src="./llvm llvm_notes [Let's see how far we can go]_files/button-xhtml.png" width="80" height="15" alt="Valid XHTML 1.0" border="0"></a>
+</div>
+
+  </div>
+</div>
+
+<div class="no"><img src="./llvm llvm_notes [Let's see how far we can go]_files/indexer.php" width="1" height="1" alt=""></div>
+
+
+<div id="gallery__overlay" style="display: none; position: fixed; top: 0px; left: 0px; z-index: 50; width: 100%; height: 100%;"><img id="gallery__loadingImage" src="./llvm llvm_notes [Let's see how far we can go]_files/loading.gif" style="position: relative; cursor: pointer;"></div><div id="gallery__lightbox" style="display: none; position: absolute; z-index: 60;"><img id="gallery__lightboxImage" style="cursor: pointer;"><img id="gallery__actionImage" src="./llvm llvm_notes [Let's see how far we can go]_files/expand.gif" style="display: none; position: absolute; top: 15px; left: 15px; z-index: 70; cursor: pointer;"><img id="gallery__closeButton" src="./llvm llvm_notes [Let's see how far we can go]_files/close.gif" style="display: inline; position: absolute; right: 10px; top: 10px; z-index: 80; cursor: pointer;"><img id="gallery__nextButton" src="./llvm llvm_notes [Let's see how far we can go]_files/next.gif" style="display: inline; position: absolute; right: 10px; bottom: 10px; z-index: 80; cursor: pointer;"><img id="gallery__prevButton" src="./llvm llvm_notes [Let's see how far we can go]_files/prev.gif" style="display: inline; position: absolute; left: 10px; bottom: 10px; z-index: 80; cursor: pointer;"><span id="gallery__lightboxCaption" style="display: none; position: absolute; z-index: 80;"></span></div></body></html>
