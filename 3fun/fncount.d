@@ -129,6 +129,8 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
  /usr/include/c++/4.8/bits/stream_iterator.h /usr/include/c++/4.8/memory \
  /usr/include/c++/4.8/bits/stl_raw_storage_iter.h \
  /usr/include/c++/4.8/backward/auto_ptr.h \
+ /home/bhushan/bin/include/llvm/IR/Module.h \
+ /home/bhushan/bin/include/llvm/ADT/OwningPtr.h \
  /home/bhushan/bin/include/llvm/IR/Function.h \
  /home/bhushan/bin/include/llvm/IR/Argument.h \
  /home/bhushan/bin/include/llvm/ADT/Twine.h \
@@ -166,10 +168,13 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
  /usr/include/i386-linux-gnu/bits/posix2_lim.h \
  /usr/include/i386-linux-gnu/bits/xopen_lim.h \
  /usr/include/i386-linux-gnu/bits/stdio_lim.h \
+ /home/bhushan/bin/include/llvm/IR/GlobalAlias.h \
+ /home/bhushan/bin/include/llvm/IR/OperandTraits.h \
+ /home/bhushan/bin/include/llvm/IR/GlobalVariable.h \
+ /home/bhushan/bin/include/llvm/IR/Metadata.h \
  /home/bhushan/bin/include/llvm/Support/raw_ostream.h \
  /home/bhushan/bin/include/llvm/Support/FileSystem.h \
  /home/bhushan/bin/include/llvm/ADT/IntrusiveRefCntPtr.h \
- /home/bhushan/bin/include/llvm/ADT/OwningPtr.h \
  /home/bhushan/bin/include/llvm/ADT/SmallString.h \
  /home/bhushan/bin/include/llvm/Support/TimeValue.h \
  /home/bhushan/bin/include/llvm/Support/system_error.h \
@@ -503,6 +508,10 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
 
 /usr/include/c++/4.8/backward/auto_ptr.h:
 
+/home/bhushan/bin/include/llvm/IR/Module.h:
+
+/home/bhushan/bin/include/llvm/ADT/OwningPtr.h:
+
 /home/bhushan/bin/include/llvm/IR/Function.h:
 
 /home/bhushan/bin/include/llvm/IR/Argument.h:
@@ -587,13 +596,19 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
 
 /usr/include/i386-linux-gnu/bits/stdio_lim.h:
 
+/home/bhushan/bin/include/llvm/IR/GlobalAlias.h:
+
+/home/bhushan/bin/include/llvm/IR/OperandTraits.h:
+
+/home/bhushan/bin/include/llvm/IR/GlobalVariable.h:
+
+/home/bhushan/bin/include/llvm/IR/Metadata.h:
+
 /home/bhushan/bin/include/llvm/Support/raw_ostream.h:
 
 /home/bhushan/bin/include/llvm/Support/FileSystem.h:
 
 /home/bhushan/bin/include/llvm/ADT/IntrusiveRefCntPtr.h:
-
-/home/bhushan/bin/include/llvm/ADT/OwningPtr.h:
 
 /home/bhushan/bin/include/llvm/ADT/SmallString.h:
 
