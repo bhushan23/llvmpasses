@@ -1,18 +1,12 @@
 #include <stdio.h>
 int main(){
 int a,b;
-
+l4:
 goto l1;
 
 printf("Hello world");
 
-if( a == b){
-//
 
-}else{
-
-//
-}
 
 l1:
 

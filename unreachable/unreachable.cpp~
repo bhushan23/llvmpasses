@@ -99,7 +99,7 @@ void DeleteDeadBlock(BasicBlock *BB) {
       for(int i = 0;i < DeadBlocks.size(); ++i){
 	errs() << "RemovingBlock\n";
 	DeadBlocks[i]->eraseFromParent();
-	//DeleteDeadBlock(DeadBlocks[i]);
+	DeleteDeadBlock(DeadBlocks[i]);
       }
       /*
 	for(SmallSet<BasicBlock*,5>  :: iterator it = visited.begin(); it != visited.end(); ++it){

@@ -129,6 +129,8 @@ unreachable.o: /home/bhushan/llvmpasses/unreachable/unreachable.cpp \
  /usr/include/c++/4.8/bits/stream_iterator.h /usr/include/c++/4.8/memory \
  /usr/include/c++/4.8/bits/stl_raw_storage_iter.h \
  /usr/include/c++/4.8/backward/auto_ptr.h \
+ /home/bhushan/bin/include/llvm/ADT/SmallPtrSet.h \
+ /home/bhushan/bin/include/llvm/Support/PointerLikeTypeTraits.h \
  /home/bhushan/bin/include/llvm/IR/Function.h \
  /home/bhushan/bin/include/llvm/IR/Argument.h \
  /home/bhushan/bin/include/llvm/ADT/Twine.h \
@@ -138,7 +140,6 @@ unreachable.o: /home/bhushan/llvmpasses/unreachable/unreachable.cpp \
  /home/bhushan/bin/include/llvm/ADT/ArrayRef.h \
  /home/bhushan/bin/include/llvm/ADT/None.h \
  /home/bhushan/bin/include/llvm/ADT/FoldingSet.h \
- /home/bhushan/bin/include/llvm/Support/PointerLikeTypeTraits.h \
  /usr/include/c++/4.8/bitset /usr/include/c++/4.8/map \
  /usr/include/c++/4.8/bits/stl_tree.h /usr/include/c++/4.8/bits/stl_map.h \
  /usr/include/c++/4.8/bits/stl_multimap.h \
@@ -191,11 +192,32 @@ unreachable.o: /home/bhushan/llvmpasses/unreachable/unreachable.cpp \
  /home/bhushan/bin/include/llvm/ADT/DenseMapInfo.h \
  /home/bhushan/bin/include/llvm/ADT/DepthFirstIterator.h \
  /home/bhushan/bin/include/llvm/ADT/GraphTraits.h \
- /home/bhushan/bin/include/llvm/ADT/SmallPtrSet.h \
  /usr/include/c++/4.8/set /usr/include/c++/4.8/bits/stl_set.h \
  /usr/include/c++/4.8/bits/stl_multiset.h \
  /home/bhushan/bin/include/llvm/Support/CFG.h \
- /home/bhushan/bin/include/llvm/IR/InstrTypes.h
+ /home/bhushan/bin/include/llvm/IR/InstrTypes.h \
+ /home/bhushan/bin/include/llvm/ADT/SmallSet.h \
+ /home/bhushan/bin/include/llvm/Transforms/Utils/BasicBlockUtils.h \
+ /home/bhushan/bin/include/llvm/Analysis/AliasAnalysis.h \
+ /home/bhushan/bin/include/llvm/Support/CallSite.h \
+ /home/bhushan/bin/include/llvm/IR/Instructions.h \
+ /home/bhushan/bin/include/llvm/Analysis/CFG.h \
+ /home/bhushan/bin/include/llvm/Analysis/LoopInfo.h \
+ /home/bhushan/bin/include/llvm/ADT/DenseSet.h \
+ /home/bhushan/bin/include/llvm/Analysis/MemoryDependenceAnalysis.h \
+ /home/bhushan/bin/include/llvm/Support/ValueHandle.h \
+ /home/bhushan/bin/include/llvm/IR/DataLayout.h \
+ /home/bhushan/bin/include/llvm/IR/IntrinsicInst.h \
+ /home/bhushan/bin/include/llvm/IR/Constants.h \
+ /home/bhushan/bin/include/llvm/IR/Intrinsics.h \
+ /home/bhushan/bin/include/llvm/IR/Intrinsics.gen \
+ /home/bhushan/bin/include/llvm/Transforms/Scalar.h \
+ /home/bhushan/bin/include/llvm/Transforms/Utils/Local.h \
+ /home/bhushan/bin/include/llvm/IR/IRBuilder.h \
+ /home/bhushan/bin/include/llvm/IR/LLVMContext.h \
+ /home/bhushan/bin/include/llvm/IR/Operator.h \
+ /home/bhushan/bin/include/llvm/Support/GetElementPtrTypeIterator.h \
+ /home/bhushan/bin/include/llvm/Support/ConstantFolder.h
 
 /usr/include/stdc-predef.h:
 
@@ -517,6 +539,10 @@ unreachable.o: /home/bhushan/llvmpasses/unreachable/unreachable.cpp \
 
 /usr/include/c++/4.8/backward/auto_ptr.h:
 
+/home/bhushan/bin/include/llvm/ADT/SmallPtrSet.h:
+
+/home/bhushan/bin/include/llvm/Support/PointerLikeTypeTraits.h:
+
 /home/bhushan/bin/include/llvm/IR/Function.h:
 
 /home/bhushan/bin/include/llvm/IR/Argument.h:
@@ -534,8 +560,6 @@ unreachable.o: /home/bhushan/llvmpasses/unreachable/unreachable.cpp \
 /home/bhushan/bin/include/llvm/ADT/None.h:
 
 /home/bhushan/bin/include/llvm/ADT/FoldingSet.h:
-
-/home/bhushan/bin/include/llvm/Support/PointerLikeTypeTraits.h:
 
 /usr/include/c++/4.8/bitset:
 
@@ -661,8 +685,6 @@ unreachable.o: /home/bhushan/llvmpasses/unreachable/unreachable.cpp \
 
 /home/bhushan/bin/include/llvm/ADT/GraphTraits.h:
 
-/home/bhushan/bin/include/llvm/ADT/SmallPtrSet.h:
-
 /usr/include/c++/4.8/set:
 
 /usr/include/c++/4.8/bits/stl_set.h:
@@ -672,3 +694,47 @@ unreachable.o: /home/bhushan/llvmpasses/unreachable/unreachable.cpp \
 /home/bhushan/bin/include/llvm/Support/CFG.h:
 
 /home/bhushan/bin/include/llvm/IR/InstrTypes.h:
+
+/home/bhushan/bin/include/llvm/ADT/SmallSet.h:
+
+/home/bhushan/bin/include/llvm/Transforms/Utils/BasicBlockUtils.h:
+
+/home/bhushan/bin/include/llvm/Analysis/AliasAnalysis.h:
+
+/home/bhushan/bin/include/llvm/Support/CallSite.h:
+
+/home/bhushan/bin/include/llvm/IR/Instructions.h:
+
+/home/bhushan/bin/include/llvm/Analysis/CFG.h:
+
+/home/bhushan/bin/include/llvm/Analysis/LoopInfo.h:
+
+/home/bhushan/bin/include/llvm/ADT/DenseSet.h:
+
+/home/bhushan/bin/include/llvm/Analysis/MemoryDependenceAnalysis.h:
+
+/home/bhushan/bin/include/llvm/Support/ValueHandle.h:
+
+/home/bhushan/bin/include/llvm/IR/DataLayout.h:
+
+/home/bhushan/bin/include/llvm/IR/IntrinsicInst.h:
+
+/home/bhushan/bin/include/llvm/IR/Constants.h:
+
+/home/bhushan/bin/include/llvm/IR/Intrinsics.h:
+
+/home/bhushan/bin/include/llvm/IR/Intrinsics.gen:
+
+/home/bhushan/bin/include/llvm/Transforms/Scalar.h:
+
+/home/bhushan/bin/include/llvm/Transforms/Utils/Local.h:
+
+/home/bhushan/bin/include/llvm/IR/IRBuilder.h:
+
+/home/bhushan/bin/include/llvm/IR/LLVMContext.h:
+
+/home/bhushan/bin/include/llvm/IR/Operator.h:
+
+/home/bhushan/bin/include/llvm/Support/GetElementPtrTypeIterator.h:
+
+/home/bhushan/bin/include/llvm/Support/ConstantFolder.h:
