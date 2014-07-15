@@ -18,8 +18,8 @@ else
 LOADABLE_MODULE_OPTIONS=-shared
 endif
 
-PLUGIN=unreach.so
-PLUGIN_OBJECTS=unreachable.o
+PLUGIN=./test/collect.so
+PLUGIN_OBJECTS=collect.o
 ALL_OBJECTS=$(PLUGIN_OBJECTS)
 ALL_TARGETS=$(EXTRACT) $(FILTER) $(PLUGIN) $(PRINT) $(SIMPLIFY)
 

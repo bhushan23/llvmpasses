@@ -1,0 +1,2 @@
+make
+opt -load ./test/collect.so -bcollect < ./test/t.ll > /dev/null

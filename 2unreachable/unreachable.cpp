@@ -6,6 +6,7 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Analysis/Dominators.h"
 #include "llvm/Support/CFG.h"
+#include "llvm/Analysis/LoopInfo.h"
 #include "vector"
 using namespace llvm;
 
@@ -18,46 +19,46 @@ namespace {
     virtual void getAnalysisUsage(AnalysisUsage &au) const {
       au.addRequired<DominatorTree>();
     }
-   unreachable() : FunctionPass(ID){}
+    unreachable() : FunctionPass(ID){}
 
     virtual bool runOnFunction(Function &F){
-	bool flag=false;    
-  errs() << "Processing Function: ";
-    std::vector<BasicBlock*> DeadBlocks;
+      bool flag=false;
+      int size=0;    
+      errs() << "Processing Function: ";
+      std::vector<BasicBlock*> DeadBlocks;
          
       DominatorTree &DT = getAnalysis<DominatorTree>();
      
-     for(Function::iterator bbi = F.begin(), bbie = F.end(); bbi != bbie; bbi++){
+      for(Function::iterator bbi = F.begin(), bbie = F.end(); bbi != bbie; bbi++){
 	BasicBlock *BBI = bbi;
 	errs() << "Block : ";
 	
 	if( !DT.isReachableFromEntry(BBI)){
-		  errs() << "Not reachable\n";
-		DeadBlocks.push_back(BBI);	
+	  errs() << "Not reachable\n";
+	  DeadBlocks.push_back(BBI);	
 	}else{
-	errs() << "Block reachable\n";
+	  errs() << "Block reachable\n";
 	}
                
       }
 	
 		
-	size = DeadBlocks.size();
-	if( size > 0)
-		flag=true;
+      size = DeadBlocks.size();
+      if( size > 0)
+	flag=true;
       for(int i = 0;i < size; ++i){
-	errs() << "RemovingBlock\n";
+	errs() << "Removing Block\n";
 	DeadBlocks[i]->eraseFromParent();
-	//DeleteDeadBlock(DeadBlocks[i]);
-	}
-     
-     return flag;
+      }
+     errs() << "\n: Please use < -S -o OUT.ll > to get Optimized Code \n";
+      return flag;
 
     }
   };
 }
 
 char unreachable::ID = 0;
-static RegisterPass<unreachable> X("unreach","Hello Function Pass",false,false);
+static RegisterPass<unreachable> X("unreach","Remove Unreachable Code",false,false);
 
 
 

@@ -18,8 +18,8 @@ else
 LOADABLE_MODULE_OPTIONS=-shared
 endif
 
-PLUGIN=fncnt1.so
-PLUGIN_OBJECTS=fncount.o
+PLUGIN=./test/unreach.so
+PLUGIN_OBJECTS=unreachable.o
 ALL_OBJECTS=$(PLUGIN_OBJECTS)
 ALL_TARGETS=$(EXTRACT) $(FILTER) $(PLUGIN) $(PRINT) $(SIMPLIFY)
 

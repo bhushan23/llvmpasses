@@ -1,3 +1,2 @@
 make
-opt -mem2reg  -load ./fncnt1.so -fncnt < c2.ll  -S -o out2.ll
-
+opt -mem2reg  -load ./test/fncnt.so -fncnt < ./test/c2.ll  -S -o out2.ll

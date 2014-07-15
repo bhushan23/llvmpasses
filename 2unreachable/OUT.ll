@@ -10,14 +10,11 @@ define i32 @main() #0 {
   store i32 0, i32* %1
   br label %2
 
-; <label>:2                                       ; preds = %4, %0
+; <label>:2                                       ; preds = %0
   br label %3
 
 ; <label>:3                                       ; preds = %2
-  br label %4
-
-; <label>:4                                       ; preds = %3
-  br label %2
+  ret i32 0
 }
 
 attributes #0 = { nounwind "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
