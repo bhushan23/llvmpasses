@@ -36,51 +36,56 @@ declare i32 @printf(i8*, ...) #1
 ; Function Attrs: nounwind
 define i32 @main() #0 {
   %1 = alloca i32, align 4
+  %t = alloca i32, align 4
   %i = alloca i32, align 4
   %j = alloca i32, align 4
   store i32 0, i32* %1
   %2 = call i32 @tempf()
+  %3 = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str1, i32 0, i32 0), i32* %t)
   store i32 0, i32* %i, align 4
-  br label %3
+  br label %4
 
-; <label>:3                                       ; preds = %17, %0
-  %4 = load i32* %i, align 4
-  %5 = icmp slt i32 %4, 5
-  br i1 %5, label %6, label %20
+; <label>:4                                       ; preds = %19, %0
+  %5 = load i32* %i, align 4
+  %6 = load i32* %t, align 4
+  %7 = icmp slt i32 %5, %6
+  br i1 %7, label %8, label %22
 
-; <label>:6                                       ; preds = %3
+; <label>:8                                       ; preds = %4
   store i32 0, i32* %j, align 4
-  br label %7
+  br label %9
 
-; <label>:7                                       ; preds = %13, %6
-  %8 = load i32* %j, align 4
-  %9 = icmp slt i32 %8, 5
-  br i1 %9, label %10, label %16
+; <label>:9                                       ; preds = %15, %8
+  %10 = load i32* %j, align 4
+  %11 = icmp slt i32 %10, 5
+  br i1 %11, label %12, label %18
 
-; <label>:10                                      ; preds = %7
-  %11 = load i32* %i, align 4
-  %12 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str1, i32 0, i32 0), i32 %11)
-  br label %13
+; <label>:12                                      ; preds = %9
+  %13 = load i32* %i, align 4
+  %14 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str1, i32 0, i32 0), i32 %13)
+  br label %15
 
-; <label>:13                                      ; preds = %10
-  %14 = load i32* %j, align 4
-  %15 = add nsw i32 %14, 1
-  store i32 %15, i32* %j, align 4
-  br label %7
+; <label>:15                                      ; preds = %12
+  %16 = load i32* %j, align 4
+  %17 = add nsw i32 %16, 1
+  store i32 %17, i32* %j, align 4
+  br label %9
 
-; <label>:16                                      ; preds = %7
-  br label %17
+; <label>:18                                      ; preds = %9
+  br label %19
 
-; <label>:17                                      ; preds = %16
-  %18 = load i32* %i, align 4
-  %19 = add nsw i32 %18, 1
-  store i32 %19, i32* %i, align 4
-  br label %3
+; <label>:19                                      ; preds = %18
+  %20 = load i32* %i, align 4
+  %21 = add nsw i32 %20, 1
+  store i32 %21, i32* %i, align 4
+  br label %4
 
-; <label>:20                                      ; preds = %3
-  %21 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str2, i32 0, i32 0))
+; <label>:22                                      ; preds = %4
+  %23 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str2, i32 0, i32 0))
   ret i32 0
 }
+
+declare i32 @__isoc99_scanf(i8*, ...) #1
 
 attributes #0 = { nounwind "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #1 = { "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }

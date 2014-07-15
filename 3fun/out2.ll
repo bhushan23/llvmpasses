@@ -31,41 +31,46 @@ declare i32 @printf(i8*, ...) #1
 
 ; Function Attrs: nounwind
 define i32 @main() #0 {
+  %t = alloca i32, align 4
   %1 = call i32 @tempf()
-  br label %2
+  %2 = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str1, i32 0, i32 0), i32* %t)
+  br label %3
 
-; <label>:2                                       ; preds = %12, %0
-  %i.0 = phi i32 [ 0, %0 ], [ %13, %12 ]
-  %3 = icmp slt i32 %i.0, 5
-  br i1 %3, label %4, label %14
+; <label>:3                                       ; preds = %14, %0
+  %i.0 = phi i32 [ 0, %0 ], [ %15, %14 ]
+  %4 = load i32* %t, align 4
+  %5 = icmp slt i32 %i.0, %4
+  br i1 %5, label %6, label %16
 
-; <label>:4                                       ; preds = %2
-  br label %5
+; <label>:6                                       ; preds = %3
+  br label %7
 
-; <label>:5                                       ; preds = %9, %4
-  %j.0 = phi i32 [ 0, %4 ], [ %10, %9 ]
-  %6 = icmp slt i32 %j.0, 5
-  br i1 %6, label %7, label %11
-
-; <label>:7                                       ; preds = %5
-  %8 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str1, i32 0, i32 0), i32 %i.0)
-  br label %9
+; <label>:7                                       ; preds = %11, %6
+  %j.0 = phi i32 [ 0, %6 ], [ %12, %11 ]
+  %8 = icmp slt i32 %j.0, 5
+  br i1 %8, label %9, label %13
 
 ; <label>:9                                       ; preds = %7
-  %10 = add nsw i32 %j.0, 1
-  br label %5
+  %10 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str1, i32 0, i32 0), i32 %i.0)
+  br label %11
 
-; <label>:11                                      ; preds = %5
-  br label %12
+; <label>:11                                      ; preds = %9
+  %12 = add nsw i32 %j.0, 1
+  br label %7
 
-; <label>:12                                      ; preds = %11
-  %13 = add nsw i32 %i.0, 1
-  br label %2
+; <label>:13                                      ; preds = %7
+  br label %14
 
-; <label>:14                                      ; preds = %2
-  %15 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str2, i32 0, i32 0))
+; <label>:14                                      ; preds = %13
+  %15 = add nsw i32 %i.0, 1
+  br label %3
+
+; <label>:16                                      ; preds = %3
+  %17 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str2, i32 0, i32 0))
   ret i32 0
 }
+
+declare i32 @__isoc99_scanf(i8*, ...) #1
 
 attributes #0 = { nounwind "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
 attributes #1 = { "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
