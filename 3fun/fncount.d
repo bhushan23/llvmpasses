@@ -186,7 +186,6 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
  /usr/include/c++/4.8/bits/stl_deque.h \
  /usr/include/c++/4.8/bits/deque.tcc \
  /usr/include/c++/4.8/bits/stl_stack.h \
- /home/bhushan/bin/include/llvm/Support/InstIterator.h \
  /home/bhushan/bin/include/llvm/Analysis/LoopInfo.h \
  /home/bhushan/bin/include/llvm/ADT/DenseMap.h \
  /home/bhushan/bin/include/llvm/ADT/DenseMapInfo.h \
@@ -207,8 +206,7 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
  /home/bhushan/bin/include/llvm/Support/GetElementPtrTypeIterator.h \
  /home/bhushan/bin/include/llvm/Support/Allocator.h \
  /home/bhushan/bin/include/llvm/Support/ConstantRange.h \
- /home/bhushan/bin/include/llvm/Support/ValueHandle.h \
- /home/bhushan/bin/include/llvm/Analysis/ScalarEvolutionExpressions.h
+ /home/bhushan/bin/include/llvm/Support/ValueHandle.h
 
 /usr/include/stdc-predef.h:
 
@@ -664,8 +662,6 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
 
 /usr/include/c++/4.8/bits/stl_stack.h:
 
-/home/bhushan/bin/include/llvm/Support/InstIterator.h:
-
 /home/bhushan/bin/include/llvm/Analysis/LoopInfo.h:
 
 /home/bhushan/bin/include/llvm/ADT/DenseMap.h:
@@ -709,5 +705,3 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
 /home/bhushan/bin/include/llvm/Support/ConstantRange.h:
 
 /home/bhushan/bin/include/llvm/Support/ValueHandle.h:
-
-/home/bhushan/bin/include/llvm/Analysis/ScalarEvolutionExpressions.h:
