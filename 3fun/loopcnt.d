@@ -1,4 +1,4 @@
-fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
+loopcnt.o: /home/bhushan/llvmpasses/3fun/loopcnt.cpp \
  /usr/include/stdc-predef.h /home/bhushan/bin/include/llvm/Pass.h \
  /home/bhushan/bin/include/llvm/Support/Compiler.h \
  /home/bhushan/bin/include/llvm/Config/llvm-config.h \
@@ -208,7 +208,7 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
  /home/bhushan/bin/include/llvm/Support/Allocator.h \
  /home/bhushan/bin/include/llvm/Support/ConstantRange.h \
  /home/bhushan/bin/include/llvm/Support/ValueHandle.h \
- /home/bhushan/bin/include/llvm/Analysis/ScalarEvolutionExpressions.h
+ /home/bhushan/bin/include/llvm/ADT/Statistic.h
 
 /usr/include/stdc-predef.h:
 
@@ -710,4 +710,4 @@ fncount.o: /home/bhushan/llvmpasses/3fun/fncount.cpp \
 
 /home/bhushan/bin/include/llvm/Support/ValueHandle.h:
 
-/home/bhushan/bin/include/llvm/Analysis/ScalarEvolutionExpressions.h:
+/home/bhushan/bin/include/llvm/ADT/Statistic.h:

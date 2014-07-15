@@ -6,6 +6,7 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Analysis/Dominators.h"
 #include "llvm/Support/CFG.h"
+#include "llvm/Analysis/LoopInfo.h"
 #include "vector"
 using namespace llvm;
 

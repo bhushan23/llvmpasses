@@ -195,7 +195,9 @@ unreachable.o: /home/bhushan/llvmpasses/unreachable/unreachable.cpp \
  /usr/include/c++/4.8/set /usr/include/c++/4.8/bits/stl_set.h \
  /usr/include/c++/4.8/bits/stl_multiset.h \
  /home/bhushan/bin/include/llvm/Support/CFG.h \
- /home/bhushan/bin/include/llvm/IR/InstrTypes.h
+ /home/bhushan/bin/include/llvm/IR/InstrTypes.h \
+ /home/bhushan/bin/include/llvm/Analysis/LoopInfo.h \
+ /home/bhushan/bin/include/llvm/ADT/DenseSet.h
 
 /usr/include/stdc-predef.h:
 
@@ -672,3 +674,7 @@ unreachable.o: /home/bhushan/llvmpasses/unreachable/unreachable.cpp \
 /home/bhushan/bin/include/llvm/Support/CFG.h:
 
 /home/bhushan/bin/include/llvm/IR/InstrTypes.h:
+
+/home/bhushan/bin/include/llvm/Analysis/LoopInfo.h:
+
+/home/bhushan/bin/include/llvm/ADT/DenseSet.h:
