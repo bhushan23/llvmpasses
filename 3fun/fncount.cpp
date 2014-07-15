@@ -13,21 +13,42 @@
 using namespace llvm;
 
 namespace {
-/*
-	class fun_count{
+
+	class fun_data{
 		public:
 		std :: vector <llvm::StringRef> fun_name;
 	      	std :: vector <int> fun_count ;	
-		void add_fun(llvm:: ){
-
+		void add_fun(llvm::StringRef in_fun,int count ){
+			bool flag = true;
+			for(int i = 0; i < fun_name.size(); ++i){
+				if( in_fun.equals(fun_name[i]) ){
+					fun_count[i] += count;
+					flag=false;
+				}
+			}	
+			if(flag){
+				fun_name.push_back(in_fun);
+				fun_count.push_back(count);
+			}
+			errs() << in_fun <<": Function added  " << count <<"\n";
 		}
-	};*/
+		void print_fun_count(){
+			int i,size;
+			size = fun_count.size();
+			for(i = 0;i < size; ++i){
+				errs() << fun_name[i] << " : " << fun_count[i] << "\n";
+			}
+		}
+	};
   class  fncount : public FunctionPass{
 	  public:  
     static char ID;
    bool initflag;
     fncount() : FunctionPass(ID){}
-    std :: map<llvm::StringRef,int> funcount; 
+    bool comparestr (llvm::StringRef, llvm :: StringRef){
+	
+    }
+   // std :: map<llvm::StringRef,int,bool comparestr(llvm::StringRef, llvm :: StringRef)> funcount; 
 
 
     virtual void getAnalysisUsage(AnalysisUsage &au) const{
@@ -38,7 +59,7 @@ namespace {
     }
     virtual bool runOnFunction(Function &F){
       bool flag=true;
-
+      static fun_data fd;
       int count = 0;
 	
       if (!F.isDeclaration()) {
@@ -46,6 +67,8 @@ namespace {
 	ScalarEvolution *SE = &getAnalysis<ScalarEvolution>();
 	Module *M = F.getParent();
 //	char* tmch = F.getName();
+	int t1 = F.getNumUses();
+	fd.add_fun(F.getName(),t1 );
 	/*if( funcount.find(F.getName()) == funcount.end() ){
 		errs() << "Not in Map\n";
 	//	char *=F.getName();
@@ -54,6 +77,8 @@ namespace {
 	}*/
 for (Module::iterator func_it = M->begin(), func_it_end = M->end();  func_it != func_it_end; ++func_it) {
 	 errs() << "\nFor Fun : "<<func_it->getName() << "\n"; 
+		fd.add_fun(func_it->getName(), 0 );
+	
 		for(Value::use_iterator i = func_it->use_begin() ; i != func_it->use_end(); ++i){
 
 	    //errs() << *i <<".... \n";
@@ -65,7 +90,9 @@ for (Module::iterator func_it = M->begin(), func_it_end = M->end();  func_it != 
 	      BasicBlock* BB = Inst->getParent();
 	    
 	      if( LI.getLoopDepth(BB) == 0 ){//inloop == NULL){
-		errs() << "No Looop...\n";			
+		errs() << "No Looop...\n";	
+		fd.add_fun(func_it->getName(),1); 	
+				
 	      }else{
 		errs() << "Loop \n";
 		  Loop *inloop = LI.getLoopFor(BB);
@@ -74,7 +101,7 @@ for (Module::iterator func_it = M->begin(), func_it_end = M->end();  func_it != 
 		  int tcnt = (int) SE->getSmallConstantTripCount(inloop,LatchBlock);	
 		  // errs() << tcnt  << " ......        " << *SE->getBackedgeTakenCount(inloop);//->getType();  	
 		  //errs() << "Trip count: " <<tcount  << "\n";
-		 count += (tcnt-1);	
+		fd.add_fun(func_it->getName(),tcnt-1); 	
 		}
 	      }	  	
 	      //errs() << *Inst << "\n";
@@ -88,7 +115,7 @@ for (Module::iterator func_it = M->begin(), func_it_end = M->end();  func_it != 
       }else{
 	errs() << "\ndeclar   " << F.getName();
       }
- 
+fd.print_fun_count(); 
       return flag;
     }
     /*
