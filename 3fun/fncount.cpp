@@ -17,10 +17,12 @@ namespace {
 		public:
 			std :: vector <llvm::StringRef> fun_name;
 			std :: vector <int> fun_count ;	
+			std :: vector <bool> unpredicatable;
 			void add_fun(llvm::StringRef in_fun,int count ){
 				int i;			
-				bool flag = true;
-				for(i = 0; i < fun_name.size(); ++i){
+				bool flag = true;	
+				int size = fun_count.size();
+				for(i = 0; i < size; ++i){
 					if( in_fun.equals(fun_name[i]) ){
 						fun_count[i] += count;
 						flag=false;
@@ -30,14 +32,28 @@ namespace {
 				if(flag){
 					fun_name.push_back(in_fun);
 					fun_count.push_back(count);
+					unpredicatable.push_back(false);
 				}
 
+			}
+			void set_unpredicatable_flag(llvm::StringRef st){
+				int size = fun_count.size();	
+				for(int i = 0; i < size; ++i){
+					if( st.equals(fun_name[i]) ){
+						unpredicatable[i] = true;
+						break;
+					}
+				}
 			}
 			void print_fun_count(){
 				int i,size;
 				size = fun_count.size();
 				for(i = 0;i < size; ++i){
-					errs() << fun_name[i] << " : " << fun_count[i] << "\n";
+					errs() << fun_name[i] << " : " << fun_count[i];
+					if(unpredicatable[i] == true ){
+						errs() << " + UNKNOWN ";
+					}	
+					errs() << '\n';
 				}
 			}
 	};
@@ -95,9 +111,10 @@ namespace {
 										int temp= ((int) SE->getSmallConstantTripCount(inloop,LatchBlock) - 1);	
 										if(temp == -1){ //Loop is un predictable probably dependent on User Input
 											tcnt=0;
+											fd.set_unpredicatable_flag(func_it->getName());	
 											break;	
-										}else{
-											tcnt*=temp;																						
+										}else{	
+											tcnt*=temp;
 											inloop = inloop-> getParentLoop();
 										}
 									}
