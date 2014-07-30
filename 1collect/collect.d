@@ -1,4 +1,4 @@
-unreachable.o: /home/bsonawane/llvmpasses/2unreachable/unreachable.cpp \
+collect.o: /home/bsonawane/llvmpasses/1collect/collect.cpp \
  /usr/include/stdc-predef.h /home/bsonawane/bin/include/llvm/Pass.h \
  /home/bsonawane/bin/include/llvm/Support/Compiler.h \
  /home/bsonawane/bin/include/llvm/Config/llvm-config.h \
@@ -168,15 +168,10 @@ unreachable.o: /home/bsonawane/llvmpasses/2unreachable/unreachable.cpp \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
- /home/bsonawane/bin/include/llvm/IR/Module.h \
- /home/bsonawane/bin/include/llvm/ADT/OwningPtr.h \
- /home/bsonawane/bin/include/llvm/IR/GlobalAlias.h \
- /home/bsonawane/bin/include/llvm/IR/OperandTraits.h \
- /home/bsonawane/bin/include/llvm/IR/GlobalVariable.h \
- /home/bsonawane/bin/include/llvm/IR/Metadata.h \
  /home/bsonawane/bin/include/llvm/Support/raw_ostream.h \
  /home/bsonawane/bin/include/llvm/Support/FileSystem.h \
  /home/bsonawane/bin/include/llvm/ADT/IntrusiveRefCntPtr.h \
+ /home/bsonawane/bin/include/llvm/ADT/OwningPtr.h \
  /home/bsonawane/bin/include/llvm/ADT/SmallString.h \
  /home/bsonawane/bin/include/llvm/Support/TimeValue.h \
  /home/bsonawane/bin/include/llvm/Support/system_error.h \
@@ -188,18 +183,11 @@ unreachable.o: /home/bsonawane/llvmpasses/2unreachable/unreachable.cpp \
  /usr/include/c++/4.8/deque /usr/include/c++/4.8/bits/stl_deque.h \
  /usr/include/c++/4.8/bits/deque.tcc \
  /usr/include/c++/4.8/bits/stl_stack.h \
- /home/bsonawane/bin/include/llvm/Analysis/Dominators.h \
- /home/bsonawane/bin/include/llvm/ADT/DenseMap.h \
- /home/bsonawane/bin/include/llvm/ADT/DenseMapInfo.h \
- /home/bsonawane/bin/include/llvm/ADT/DepthFirstIterator.h \
- /home/bsonawane/bin/include/llvm/ADT/GraphTraits.h \
- /home/bsonawane/bin/include/llvm/ADT/SmallPtrSet.h \
- /usr/include/c++/4.8/set /usr/include/c++/4.8/bits/stl_set.h \
- /usr/include/c++/4.8/bits/stl_multiset.h \
- /home/bsonawane/bin/include/llvm/Support/CFG.h \
- /home/bsonawane/bin/include/llvm/IR/InstrTypes.h \
- /home/bsonawane/bin/include/llvm/Analysis/LoopInfo.h \
- /home/bsonawane/bin/include/llvm/ADT/DenseSet.h
+ /home/bsonawane/bin/include/llvm/IR/Module.h \
+ /home/bsonawane/bin/include/llvm/IR/GlobalAlias.h \
+ /home/bsonawane/bin/include/llvm/IR/OperandTraits.h \
+ /home/bsonawane/bin/include/llvm/IR/GlobalVariable.h \
+ /home/bsonawane/bin/include/llvm/IR/Metadata.h
 
 /usr/include/stdc-predef.h:
 
@@ -605,23 +593,13 @@ unreachable.o: /home/bsonawane/llvmpasses/2unreachable/unreachable.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 
-/home/bsonawane/bin/include/llvm/IR/Module.h:
-
-/home/bsonawane/bin/include/llvm/ADT/OwningPtr.h:
-
-/home/bsonawane/bin/include/llvm/IR/GlobalAlias.h:
-
-/home/bsonawane/bin/include/llvm/IR/OperandTraits.h:
-
-/home/bsonawane/bin/include/llvm/IR/GlobalVariable.h:
-
-/home/bsonawane/bin/include/llvm/IR/Metadata.h:
-
 /home/bsonawane/bin/include/llvm/Support/raw_ostream.h:
 
 /home/bsonawane/bin/include/llvm/Support/FileSystem.h:
 
 /home/bsonawane/bin/include/llvm/ADT/IntrusiveRefCntPtr.h:
+
+/home/bsonawane/bin/include/llvm/ADT/OwningPtr.h:
 
 /home/bsonawane/bin/include/llvm/ADT/SmallString.h:
 
@@ -655,28 +633,12 @@ unreachable.o: /home/bsonawane/llvmpasses/2unreachable/unreachable.cpp \
 
 /usr/include/c++/4.8/bits/stl_stack.h:
 
-/home/bsonawane/bin/include/llvm/Analysis/Dominators.h:
+/home/bsonawane/bin/include/llvm/IR/Module.h:
 
-/home/bsonawane/bin/include/llvm/ADT/DenseMap.h:
+/home/bsonawane/bin/include/llvm/IR/GlobalAlias.h:
 
-/home/bsonawane/bin/include/llvm/ADT/DenseMapInfo.h:
+/home/bsonawane/bin/include/llvm/IR/OperandTraits.h:
 
-/home/bsonawane/bin/include/llvm/ADT/DepthFirstIterator.h:
+/home/bsonawane/bin/include/llvm/IR/GlobalVariable.h:
 
-/home/bsonawane/bin/include/llvm/ADT/GraphTraits.h:
-
-/home/bsonawane/bin/include/llvm/ADT/SmallPtrSet.h:
-
-/usr/include/c++/4.8/set:
-
-/usr/include/c++/4.8/bits/stl_set.h:
-
-/usr/include/c++/4.8/bits/stl_multiset.h:
-
-/home/bsonawane/bin/include/llvm/Support/CFG.h:
-
-/home/bsonawane/bin/include/llvm/IR/InstrTypes.h:
-
-/home/bsonawane/bin/include/llvm/Analysis/LoopInfo.h:
-
-/home/bsonawane/bin/include/llvm/ADT/DenseSet.h:
+/home/bsonawane/bin/include/llvm/IR/Metadata.h:

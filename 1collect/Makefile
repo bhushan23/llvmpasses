@@ -1,4 +1,4 @@
-LLVM_CONFIG?=/home/bhushan/bin/bin/llvm-config
+LLVM_CONFIG?=~/bin/bin/llvm-config
 
 # Location of the source, useful if you want separate source and object
 # directories.

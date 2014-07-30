@@ -6,15 +6,21 @@ target triple = "i386-pc-linux-gnu"
 define i32 @main() #0 {
   %1 = alloca i32, align 4
   %a = alloca i32, align 4
-  %b = alloca i32, align 4
   store i32 0, i32* %1
   br label %2
 
 ; <label>:2                                       ; preds = %0
-  br label %3
+  %3 = load i32* %a, align 4
+  %4 = add nsw i32 %3, 1
+  store i32 %4, i32* %a, align 4
+  br label %5
 
-; <label>:3                                       ; preds = %2
-  ret i32 0
+; <label>:5                                       ; preds = %2
+  %6 = load i32* %a, align 4
+  %7 = add nsw i32 %6, -1
+  store i32 %7, i32* %a, align 4
+  %8 = load i32* %1
+  ret i32 %8
 }
 
 attributes #0 = { nounwind "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "stack-protector-buffer-size"="8" "unsafe-fp-math"="false" "use-soft-float"="false" }
