@@ -1,2 +1,2 @@
 make
-opt -mem2reg  -load ./test/fncnt.so -fncnt < ./test/t.ll  -S -o out2.ll
+opt -mem2reg --debug-pass=Structure -load ./test/fncnt.so -fncnt < ./test/t.ll  -S -o out2.ll
