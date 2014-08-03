@@ -17,15 +17,19 @@ define i32 @main() #0 {
   %3 = load i32* %b, align 4
   %4 = urem i32 %2, %3
   store i32 %4, i32* %c, align 4
-  %5 = load i32* %c, align 4
-  %6 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([4 x i8]* @.str, i32 0, i32 0), i32 %5)
+  %5 = load i32* %b, align 4
+  %6 = load i32* %a, align 4
+  %7 = urem i32 %5, %6
+  store i32 %7, i32* %c, align 4
+  %8 = load i32* %c, align 4
+  %9 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([4 x i8]* @.str, i32 0, i32 0), i32 %8)
   store i32 3, i32* %a, align 4
-  %7 = load i32* %a, align 4
-  %8 = load i32* %b, align 4
-  %9 = urem i32 %7, %8
-  store i32 %9, i32* %c, align 4
-  %10 = load i32* %c, align 4
-  %11 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([4 x i8]* @.str, i32 0, i32 0), i32 %10)
+  %10 = load i32* %a, align 4
+  %11 = load i32* %b, align 4
+  %12 = urem i32 %10, %11
+  store i32 %12, i32* %c, align 4
+  %13 = load i32* %c, align 4
+  %14 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([4 x i8]* @.str, i32 0, i32 0), i32 %13)
   ret i32 0
 }
 

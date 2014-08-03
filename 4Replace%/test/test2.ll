@@ -15,14 +15,14 @@ define i32 @main() #0 {
   store i32 2, i32* %b, align 4
   %2 = load i32* %a, align 4
   %3 = load i32* %b, align 4
-  %4 = urem i32 %2, %3
+  %4 = srem i32 %2, %3
   store i32 %4, i32* %c, align 4
   %5 = load i32* %c, align 4
   %6 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([4 x i8]* @.str, i32 0, i32 0), i32 %5)
   store i32 3, i32* %a, align 4
   %7 = load i32* %a, align 4
   %8 = load i32* %b, align 4
-  %9 = urem i32 %7, %8
+  %9 = srem i32 %7, %8
   store i32 %9, i32* %c, align 4
   %10 = load i32* %c, align 4
   %11 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([4 x i8]* @.str, i32 0, i32 0), i32 %10)

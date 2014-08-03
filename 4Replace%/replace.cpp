@@ -25,16 +25,16 @@ namespace {
 
 						virtual bool runOnFunction(Function &F){
 								for( inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I){
-										if( I->getOpcode() == 18 ){//18: opcode enum for srem
-												errs() << I->getOpcode() << "   " << I->getOpcodeName()<<"\n";
-											/*	for( op_iterator OI = I->op_begin(), OE = I->op_end(); OI != OE; ++OI){
-																errs() << *OI;
-
-												}*/
-												 errs() << dyn_cast<llvm::ConstantInt>(I->getOperand(0));
-												errs() << "  " ;
-												//:w
-												//I->getOperand(1)->print(errs);
+										//  errs() << "  " << I-> getOpcode() ;
+										if( I->getOpcode() == 17 ){//18: opcode enum for srem
+												errs() << I->getOpcode() << "   " << I->getOpcodeName() << "  " << *(I->getOperand(0)) << " " << *(I->getOperand(1))<<"\n";
+												int op1;
+												Value *v1 = I->getOperand(0);
+												llvm::ConstantInt* CI = dyn_cast<llvm::ConstantInt> (v1);
+												errs() << "got 1 operand " << *CI;
+											//	if( ( dyn_cast<ConstantInt>(*(I->getOperand(1))) & dyn_cast<ConstantInt>(*(I->getOperand(1)-1)) ) == 0 ){
+											//		errs() << "Oeprand is multiple\n";
+											//	}
 										}
 								}
 
