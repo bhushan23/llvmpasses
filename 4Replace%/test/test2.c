@@ -11,6 +11,7 @@ int main(){
 		printf("\n%d",c);
 		//c = a  b;
 		a = 3;
+		b = 8;
 		c = a % b;
 		printf("\n%d",c);
 	

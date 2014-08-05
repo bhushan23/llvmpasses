@@ -13,7 +13,7 @@
 #include "llvm/IR/Constants.h"
 #include "llvm/ADT/APInt.h"
 #include "vector"
- 
+
 using namespace llvm;
 
 
@@ -31,25 +31,37 @@ namespace {
 								for( inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I){
 										//  errs() << "  " << I-> getOpcode() ;
 										if( I->getOpcode() == 17 ){//18: opcode enum for srem
-												errs() << I->getOpcode() << "   " << I->getOpcodeName() << "  " << *(I->getOperand(0)) << " " << *(I->getOperand(1))<<"\n";
+					//							errs() << I->getOpcode() << "   " << I->getOpcodeName() << "  " << *(I->getOperand(0)) << " " << *(I->getOperand(1))<<"\n";
 												int op1;
-												Value *v1 = (I->getOperand(1));
-												//errs() << *v1 <<" " << *v1-1;
-												//llvm::ConstantInt *CI = cast<llvm::Constant_int>(*(I->getOperand(1)));
-										//		errs() << "\n::: " << *(v1->getType());
-												//llvm::ConstantInt* CI = dyn_cast<llvm::ConstantInt> (v1);
-												//errs() << "got 1 operand " << *CI;
-										/*		if( ( (*(I->getOperand(1))) & (*(I->getOperand(1))) ) == 0 ){
-													errs() << "Oeprand is multiple\n";
-												}*/
-											
+												Value *v1 = I->getOperand(1);
+												Value *v2 = I->getOperand(0);
+												errs() << *v1  ;
 												if (ConstantInt* CI = dyn_cast<ConstantInt>(v1)) {
-													errs() << "\nconst found";
-													APInt *ap = dyn_cast <APInt>(v1);
-															
+														errs() << "\nconst found";
+														//uint64_t constIntValue = CI->getZExtValue();
+														//errs() << "Value " << constIntValue << "\n"; 
+														APInt op_val = CI->getValue();
+														if(op_val.isPowerOf2()){
+																
+															errs() << "\n:::POWER 2 " << op_val.countTrailingZeros()  <<"  " << op_val.getBitWidth();	
+														APInt modify = APInt(op_val.getBitWidth(),(1<<op_val.countTrailingZeros()) - 1,false);
+														errs() << ":::::" << *(modify.getRawData());
+															if(ConstantInt* CI2 = dyn_cast<ConstantInt>(v2)){//First Operand is also constant
+																	APInt opcode1 = CI2->getValue();
+																	APInt result = opcode1 & modify;
+																	errs() << "ANS::"<<*result.getRawData();
+
+															}else{//First opcode is undef, Therefore Modify Instruction
+																
+															}
+
+														}	
+
+
+
 												}
 												else {
-													errs() << "\nNot const found";
+														errs() << "\nNot const found";
 												}
 										}
 								}

@@ -1,2 +1,2 @@
 make
-opt -mem2reg -load ./replace.so -replacemod < test4.ll
+opt -mem2reg -load ./replace.so -replacemod < t1.ll
