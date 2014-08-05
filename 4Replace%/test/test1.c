@@ -8,7 +8,8 @@ int main(){
 //		c = a + b;
 //		c = a - b;
 		c = a % b;
-		scanf("%d",&a);
+//		scanf("%d",&a);
+		b = 16;
 		c = a % b;
 		return 0;
 }
