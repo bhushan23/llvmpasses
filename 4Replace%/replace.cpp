@@ -13,6 +13,10 @@
 #include "llvm/IR/Constants.h"
 #include "llvm/ADT/APInt.h"
 #include "llvm/IR/IRBuilder.h"
+#include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/InstrTypes.h"
+#include "llvm/ADT/Twine.h"
+#include "llvm/IR/Instruction.def"
 #include "vector"
 
 using namespace llvm;
@@ -29,6 +33,7 @@ public:
 		ReplaceMod():FunctionPass(ID){}
 
 		virtual bool runOnFunction(Function &F){
+				bool changed = false;
 				for( inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I){
 						//  errs() << "  " << I-> getOpcode() ;
 						if( I->getOpcode() == 17 ){//18: opcode enum for srem
@@ -52,17 +57,20 @@ public:
 														APInt opcode1 = CI2->getValue();
 														APInt result = opcode1 & modify;
 														errs() << "ANS::"<<result.getLimitedValue();
-														//Value* val= dyn_cast <Value> (result);	
+														Constant* op2 = ConstantInt::get(CI->getType(),result);
+														I->replaceAllUsesWith(op2);
 														
 												}else{//First opcode is undef, Therefore Modify Instruction
 
+														LLVMContext LC;
 														Constant* op2 = ConstantInt::get(CI->getType(),modify);
+														Value *v2 = dyn_cast<Value>(op2);
+														Value *v1 = dyn_cast<Value>(CI);
 														I->setOperand(1,op2);
-														IRBuilder builder(I);
-														Value *And = builder.CreateAnd(CI, op2, "test");
-														//errs() << "NewInst:\n" << *newInst << "\n";
-														//Instruction newIns = Instruction (I->getType(),);
-														errs() << "setting ";			
+														Instruction *inst = &*I;
+														BinaryOperator::Create(Instruction::And,v1,v2,Twine("ANDINST"),inst);
+														changed = true;
+													errs() << "setting ";			
 													
 												}
 
@@ -77,7 +85,7 @@ public:
 						}
 				}
 
-				return false;
+				return changed;
 		}
 
 };
