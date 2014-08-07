@@ -10,10 +10,7 @@ define i32 @main() #0 {
 entry:
   %a = alloca i32, align 4
   store i32 11, i32* %a, align 4
-  %0 = load i32* %a, align 4
-  %ANDINST = and i32 8, 7
   %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %a)
-  %1 = load i32* %a, align 4
   %ANDINST1 = and i32 16, 15
   %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([7 x i8]* @.str1, i32 0, i32 0), i32 %ANDINST1, i32 %ANDINST1)
   ret i32 0
