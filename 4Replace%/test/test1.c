@@ -6,11 +6,8 @@ int main(){
 		//b = 5;
 		a = 11;
 		b = 8;
-//		c = a + b;
-//		c = a - b;
 		c = a % b;
-		scanf("%d",&a);
-		b = 16;
+		scanf("%d",&b);
 		c = a % b;
 		d = c;
 		printf("%d %d ",c,d);
