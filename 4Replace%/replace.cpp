@@ -36,12 +36,14 @@ namespace {
             virtual bool runOnFunction(Function &F){
                 bool changed = false;
                 std::list<Instruction*> instToRemove; 
+                Value *subV = NULL;
                 for( inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I){
                     //  errs() << "  " << I-> getOpcode() ;
                     if( I->getOpcode() == 17 ){//18: opcode enum for srem
                         //errs() << I->getOpcode() << "   " << I->getOpcodeName() << "  " << *(I->getOperand(0)) << " " << *(I->getOperand(1))<<"\n";
-                        Instruction *inst = &*I;
-                        Value *v1 = I->getOperand(0);
+                        Instruction *inst = &*I;                        Value *v1 = I->getOperand(0);
+                        IRBuilder<> builder(inst);
+
                         Value *v2 = I->getOperand(1);
                         errs() << *v1  ;
                         if (ConstantInt* CI = dyn_cast<ConstantInt>(v2)) {
@@ -79,8 +81,24 @@ namespace {
                             uint64_t val = 1;
                             Constant* cTemp = ConstantInt::get(v2->getType(),val,false);
                             Value *vTemp = dyn_cast<Value>(cTemp);
-                            BinaryOperator::Create(Instruction::Sub,v2,vTemp,Twine("Sub"),inst);
+                            val = 0;
+                            Constant* cZero = ConstantInt::get(v2->getType(),val,false);
+                       
+                            /* 
+                               BinaryOperator::Create(Instruction::Sub,v2,vTemp,Twine("Sub"),inst);
+                               Instruction *pinst = &*(--I);
+                               ++I;
+                               BinaryOperator::Create(Instruction::And,v2,pinst,Twine("And"),inst);
+                               */
+                            if(!subV)
+                                subV = builder.CreateSub(v2,vTemp,"sub");
+                            Value *andV = builder.CreateAnd(v2,subV,"and");
+                            vTemp = dyn_cast<Value>(cZero);
+                            BasicBlock* iftrue = BasicBlock::Create(getGlobalContext(),"if.then",&F);
+                            builder.SetInsertPoint(iftrue);
+                            builder.CreateRet(vTemp);
                             changed = true;
+
                         }
                     }
                 }

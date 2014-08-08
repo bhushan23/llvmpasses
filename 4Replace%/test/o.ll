@@ -12,19 +12,11 @@ entry:
   store i32 8, i32* %b, align 4
   %0 = load i32* %b, align 4
   %sub = sub i32 %0, 1
-  %and = and i32 %0, %sub
-  %rem = urem i32 11, %0
   %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %b)
   %1 = load i32* %b, align 4
-  %and1 = and i32 %1, %sub
+  %sub1 = sub i32 %1, 1
   %rem1 = urem i32 11, %1
   %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([7 x i8]* @.str1, i32 0, i32 0), i32 %rem1, i32 %rem1)
-  ret i32 0
-
-if.then:                                          ; No predecessors!
-  ret i32 0
-
-if.then2:                                         ; No predecessors!
   ret i32 0
 }
 
