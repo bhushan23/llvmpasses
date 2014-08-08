@@ -94,11 +94,27 @@ namespace {
                                 subV = builder.CreateSub(v2,vTemp,"sub");
                             Value *andV = builder.CreateAnd(v2,subV,"and");
                             vTemp = dyn_cast<Value>(cZero);
+                           
                             BasicBlock* iftrue = BasicBlock::Create(getGlobalContext(),"if.then",&F);
-                            builder.SetInsertPoint(iftrue);
+                            BasicBlock* iffalse = BasicBlock::Create(getGlobalContext(),"if.else",&F);
+                            BasicBlock* ifend = BasicBlock::Create(getGlobalContext(),"if.end",&F);
+                            BasicBlock* end = BasicBlock::Create(getGlobalContext(),"end",&F);
+                            builder.SetInsertPoint(end);
                             builder.CreateRet(vTemp);
-                            changed = true;
+                            builder.SetInsertPoint(iftrue);
+                            builder.CreateBr(ifend);
+                            builder.SetInsertPoint(iffalse);
+                            builder.CreateBr(ifend);
+                            builder.SetInsertPoint(ifend);
+                            //builder.CreateRet(vTemp);
+                            builder.CreateBr(end);
 
+                            builder.SetInsertPoint(inst);
+                            //Value *lessthan = builder.CreateICmpULT(andV,vTemp,"cmp");
+                            //builder.CreateCondBr(lessthan,iftrue,iffalse);
+                                
+                            changed = true;
+                        
                         }
                     }
                 }

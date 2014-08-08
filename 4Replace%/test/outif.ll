@@ -6,6 +6,7 @@ target triple = "x86_64-unknown-linux-gnu"
 @.str1 = private unnamed_addr constant [7 x i8] c"%d %d \00", align 1
 @.str2 = private unnamed_addr constant [8 x i8] c"Power 2\00", align 1
 @.str3 = private unnamed_addr constant [12 x i8] c"Not Power 2\00", align 1
+@.str4 = private unnamed_addr constant [7 x i8] c"sdfsdF\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define i32 @main() #0 {
@@ -22,10 +23,10 @@ entry:
   %1 = load i32* %b, align 4
   %rem = urem i32 %0, %1
   store i32 %rem, i32* %c, align 4
-  %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %a)
+  %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %b)
   store i32 16, i32* %b, align 4
   %2 = load i32* %a, align 4
-  %3 = load i32* %b, align 4
+  %3 = load i32* %d, align 4
   %rem1 = urem i32 %2, %3
   store i32 %rem1, i32* %c, align 4
   %4 = load i32* %c, align 4
@@ -33,9 +34,9 @@ entry:
   %5 = load i32* %c, align 4
   %6 = load i32* %d, align 4
   %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([7 x i8]* @.str1, i32 0, i32 0), i32 %5, i32 %6)
-  %7 = load i32* %c, align 4
-  %8 = load i32* %c, align 4
-  %sub = sub nsw i32 %8, 1
+  %7 = load i32* %b, align 4
+  %8 = load i32* %b, align 4
+  %sub = sub i32 %8, 1
   %and = and i32 %7, %sub
   %cmp = icmp eq i32 %and, 0
   br i1 %cmp, label %if.then, label %if.else
@@ -49,6 +50,35 @@ if.else:                                          ; preds = %entry
   br label %if.end
 
 if.end:                                           ; preds = %if.else, %if.then
+  %call5 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([7 x i8]* @.str4, i32 0, i32 0))
+  %call6 = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %b)
+  store i32 16, i32* %b, align 4
+  %9 = load i32* %a, align 4
+  %10 = load i32* %d, align 4
+  %rem7 = urem i32 %9, %10
+  store i32 %rem7, i32* %c, align 4
+  %11 = load i32* %c, align 4
+  store i32 %11, i32* %d, align 4
+  %12 = load i32* %c, align 4
+  %13 = load i32* %d, align 4
+  %call8 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([7 x i8]* @.str1, i32 0, i32 0), i32 %12, i32 %13)
+  %14 = load i32* %b, align 4
+  %15 = load i32* %b, align 4
+  %sub9 = sub i32 %15, 1
+  %and10 = and i32 %14, %sub9
+  %cmp11 = icmp eq i32 %and10, 0
+  br i1 %cmp11, label %if.then12, label %if.else14
+
+if.then12:                                        ; preds = %if.end
+  %call13 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([8 x i8]* @.str2, i32 0, i32 0))
+  br label %if.end16
+
+if.else14:                                        ; preds = %if.end
+  %call15 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([12 x i8]* @.str3, i32 0, i32 0))
+  br label %if.end16
+
+if.end16:                                         ; preds = %if.else14, %if.then12
+  %call17 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([7 x i8]* @.str4, i32 0, i32 0))
   ret i32 0
 }
 

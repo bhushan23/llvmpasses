@@ -22,9 +22,27 @@ entry:
   ret i32 0
 
 if.then:                                          ; No predecessors!
+  br label %if.end
+
+if.else:                                          ; No predecessors!
+  br label %if.end
+
+if.end:                                           ; preds = %if.else, %if.then
+  br label %end
+
+end:                                              ; preds = %if.end
   ret i32 0
 
 if.then2:                                         ; No predecessors!
+  br label %if.end4
+
+if.else3:                                         ; No predecessors!
+  br label %if.end4
+
+if.end4:                                          ; preds = %if.else3, %if.then2
+  br label %end5
+
+end5:                                             ; preds = %if.end4
   ret i32 0
 }
 
