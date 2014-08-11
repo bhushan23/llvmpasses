@@ -3,7 +3,7 @@ target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f3
 target triple = "x86_64-unknown-linux-gnu"
 
 @.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1
-@.str1 = private unnamed_addr constant [7 x i8] c"%d %d \00", align 1
+@.str1 = private unnamed_addr constant [9 x i8] c"%d %d %d\00", align 1
 
 ; Function Attrs: nounwind uwtable
 define i32 @main() #0 {
@@ -13,36 +13,32 @@ entry:
   %0 = load i32* %b, align 4
   %sub = sub i32 %0, 1
   %and = and i32 %0, %sub
+  %tempcmp0 = icmp eq i32 %and, 0
+  br label %ifend
+
+if.then:                                          ; No predecessors!
+  br label %ifend
+
+if.else:                                          ; No predecessors!
+  br label %ifend
+
+ifend:                                            ; preds = %if.else, %if.then, %entry
   %rem = urem i32 11, %0
   %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %b)
   %1 = load i32* %b, align 4
   %and1 = and i32 %1, %sub
+  %tempcmp02 = icmp eq i32 %and1, 0
+  br label %ifend3
+
+if.then4:                                         ; No predecessors!
+  br label %ifend3
+
+if.else5:                                         ; No predecessors!
+  br label %ifend3
+
+ifend3:                                           ; preds = %if.else5, %if.then4, %ifend
   %rem1 = urem i32 11, %1
-  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([7 x i8]* @.str1, i32 0, i32 0), i32 %rem1, i32 %rem1)
-  ret i32 0
-
-if.then:                                          ; No predecessors!
-  br label %if.end
-
-if.else:                                          ; No predecessors!
-  br label %if.end
-
-if.end:                                           ; preds = %if.else, %if.then
-  br label %end
-
-end:                                              ; preds = %if.end
-  ret i32 0
-
-if.then2:                                         ; No predecessors!
-  br label %if.end4
-
-if.else3:                                         ; No predecessors!
-  br label %if.end4
-
-if.end4:                                          ; preds = %if.else3, %if.then2
-  br label %end5
-
-end5:                                             ; preds = %if.end4
+  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str1, i32 0, i32 0), i32 %rem, i32 %rem, i32 %rem1)
   ret i32 0
 }
 
