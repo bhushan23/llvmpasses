@@ -1,19 +1,17 @@
 #include <stdio.h>
 int main(){
-		int a,c;
-		unsigned int b;
-		//b = 5;
-		a = -3;
-		scanf("%d",&b);	
-		c = a % b;
-		c = b % a;
 
-		printf("\n%d",c);
-		//c = a  b;
-		a = 3;
-		b = 8;
-		c = a % b;
-		printf("\n%d",c);
-	
-		return 0;
+    int a,c,b;
+  // unsigned int b,d;
+    a = 10;
+    b = 20;
+    c = 30;
+    if( a == b ){
+        c = a + b;
+    }else{
+        c = b - a;
+    }
+
+    printf("%d",c);
+    return 0;
 }

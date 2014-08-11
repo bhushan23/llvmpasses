@@ -14,29 +14,34 @@ entry:
   %sub = sub i32 %0, 1
   %and = and i32 %0, %sub
   %tempcmp0 = icmp eq i32 %and, 0
+  br i1 %tempcmp0, label %if.then, label %if.else
+
+if.then:                                          ; preds = %entry
+  %AND = and i32 11, %sub
   br label %ifend
 
-if.then:                                          ; No predecessors!
+if.else:                                          ; preds = %entry
+  %UREM = urem i32 11, %0
   br label %ifend
 
-if.else:                                          ; No predecessors!
-  br label %ifend
-
-ifend:                                            ; preds = %if.else, %if.then, %entry
+ifend:                                            ; preds = %if.else, %if.then
   %rem = urem i32 11, %0
   %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %b)
   %1 = load i32* %b, align 4
-  %and1 = and i32 %1, %sub
-  %tempcmp02 = icmp eq i32 %and1, 0
-  br label %ifend3
+  %sub1 = sub i32 %1, 1
+  %and2 = and i32 %1, %sub1
+  %tempcmp03 = icmp eq i32 %and2, 0
+  br i1 %tempcmp03, label %if.then5, label %if.else6
 
-if.then4:                                         ; No predecessors!
-  br label %ifend3
+if.then5:                                         ; preds = %ifend
+  %AND7 = and i32 11, %sub1
+  br label %ifend4
 
-if.else5:                                         ; No predecessors!
-  br label %ifend3
+if.else6:                                         ; preds = %ifend
+  %UREM8 = urem i32 11, %1
+  br label %ifend4
 
-ifend3:                                           ; preds = %if.else5, %if.then4, %ifend
+ifend4:                                           ; preds = %if.else6, %if.then5
   %rem1 = urem i32 11, %1
   %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str1, i32 0, i32 0), i32 %rem, i32 %rem, i32 %rem1)
   ret i32 0

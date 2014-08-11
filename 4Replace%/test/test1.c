@@ -7,9 +7,10 @@ int main(){
 		a = 11;
 		b = 8;
 		c = a % b;
-		scanf("%d",&b);
-		 e= a % b;
+                scanf("%d",&b);
+//		scanf("%d",&b);
+/*		 e= a % b;
 		d = c;
 		printf("%d %d %d",c,d,e);
-		return 0;
+*/		return 0;
 }

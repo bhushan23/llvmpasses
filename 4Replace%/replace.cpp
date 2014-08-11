@@ -17,6 +17,7 @@
 #include "llvm/IR/InstrTypes.h"
 #include "llvm/ADT/Twine.h"
 #include "llvm/IR/Instruction.def"
+#include "llvm/IR/InstrTypes.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "list"
 
@@ -82,6 +83,7 @@ namespace {
                             }
                         }	
                     }else {
+                     
                         errs() << "\nInserting If Else ";
                         uint64_t val = 1;
                         Constant* cTemp = ConstantInt::get(v2->getType(),val,false);
@@ -101,33 +103,60 @@ namespace {
                         
                         //F.getBasicBlockList().push_back(iftrue);
                         //F.getBasicBlockList().push_back(iffalse); 
-
-                       if(!subV)
+                       
+                       //if(!subV)
                             subV = builder.CreateSub(v2,vTemp,"sub");
                         Value *andV = builder.CreateAnd(v2,subV,"and");
                         vTemp = dyn_cast<Value>(cZero);
                         Value* equalVal = builder.CreateICmpEQ(andV,vTemp,"tempcmp0");
-                        BasicBlock* block = inst->getParent();
-                        BasicBlock::iterator iter = *inst;
-                        BasicBlock* ifend = block->splitBasicBlock(iter,"ifend");                      
+                        //  builder.CreateCondBr(equalVal,iftrue,iffalse);
+
+                       /* PHINode *PN = PHINode::Create, 2, "if.tmp",inst );
+                        PN->addIncoming(equalVal, iftrue);
+                        PN->addIncoming(equalVal, iffalse); 
+                        */
+                      BasicBlock* block = inst->getParent();
+
+                     // BasicBlock::iterator iter = *inst;
+                       BasicBlock* ifend = block->splitBasicBlock(inst,"ifend");                    
+                       BasicBlock* oldBlock = dyn_cast<Instruction>(equalVal)->getParent();
+                        Instruction *oldHead = oldBlock->getTerminator();
+                        errs() << "OLD VALUE : ";
+                        oldHead->dump();
+ 
                         BasicBlock* iftrue = BasicBlock::Create(getGlobalContext(),"if.then",&F,ifend);
                         BasicBlock* iffalse = BasicBlock::Create(getGlobalContext(),"if.else",&F,ifend);
-                        BasicBlock* entryB = F.begin();
+
+                       BranchInst *newHead = BranchInst::Create(iftrue,iffalse,equalVal); 
+                       newHead->setDebugLoc(inst->getDebugLoc());
+                        errs() <<  "     NEW VALUE : ";
+                        newHead->dump();
+                        
+                       ReplaceInstWithInst(oldHead,newHead);
+                                              //ifend->removePredecessor(entryB,false);
+                         // Instruction* del = entryB->end();
+                      // del->eraseFromParent(); 
                         // builder.SetInsertPoint(entryB);//dyn_cast<Instruction>(equalVal));
                         //builder.CreateCondBr(equalVal,iftrue,iffalse);
-                         builder.SetInsertPoint(iftrue);
+                         /*builder.SetInsertPoint(iftrue);
                          builder.CreateBr(ifend);
                          builder.SetInsertPoint(iffalse);
                          builder.CreateBr(ifend);
-                        
+                        */
 
-/*
+
                       builder.SetInsertPoint(iftrue);
+                       Value* oInst1 = builder.CreateAnd(v1,subV,"AND");    
                         builder.CreateBr(ifend);
                         builder.SetInsertPoint(iffalse);
+                        Value* oInst2 = builder.CreateURem(v1,v2,"UREM");
                         builder.CreateBr(ifend);
                         builder.SetInsertPoint(ifend);
-  */                       
+                        //PHINode* phiNode = builder.CreatePHI(inst->getType(),2,"phirem"); 
+                        //phiNode->addIncoming(oInst1,dyn_cast<Instruction>(oInst1)->getParent());
+                        //phiNode->addIncoming(oInst2,dyn_cast<Instruction>(oInst2)->getParent());
+
+
                     // builder.SetInsertPoint();
                          
  
