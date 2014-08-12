@@ -48,14 +48,14 @@ namespace {
                         if( op_val.isPowerOf2() ){
                             APInt modify = APInt( op_val.getBitWidth(),( 1 << op_val.countTrailingZeros() ) - 1,false);
 
-                            if(ConstantInt* CI2 = dyn_cast<ConstantInt>(v2)){//First Operand is also constant
+                            if(ConstantInt* CI2 = dyn_cast<ConstantInt>(v1)){//First Operand is also constant
 
                                 APInt opcode1 = CI2->getValue();
                                 APInt result = opcode1 & modify;
                                 errs() << "ANS::"<<result.getLimitedValue();
                                 Constant* op2 = ConstantInt::get(CI->getType(),result);
-                                inst->replaceAllUsesWith(op2);
-
+                                Value* vop = dyn_cast<Value> (op2);
+                                inst->replaceAllUsesWith(vop);
                             }else{//First opcode is undef, Therefore Modify Instruction
 
                                 LLVMContext LC;
@@ -63,7 +63,7 @@ namespace {
                                 Value *v2 = dyn_cast<Value>(op2);
                                 Value *v1 = dyn_cast<Value>(CI);
                                 inst->setOperand(1,op2);
-                                inst->replaceAllUsesWith(BinaryOperator::Create(Instruction::And,v1,v2,Twine("ANDINST"),inst));
+                                inst->replaceAllUsesWith(BinaryOperator::Create(Instruction::And,v1,v2,Twine("andinst"),inst));
                             }
                         }
 
@@ -105,9 +105,8 @@ namespace {
                         pNode->addIncoming(oInst2, iffalse); 
 
                         inst->replaceAllUsesWith(pNode); 
-                        inst->eraseFromParent();
                     }
-
+                    inst->eraseFromParent();
                 }	
                 return instToRemove.size();
             }
