@@ -13,37 +13,37 @@ entry:
   %0 = load i32* %b, align 4
   %sub = sub i32 %0, 1
   %and = and i32 %0, %sub
-  %tempcmp0 = icmp eq i32 %and, 0
-  br i1 %tempcmp0, label %if.then, label %if.else
+  %cmp0with = icmp eq i32 %and, 0
+  br i1 %cmp0with, label %if.then, label %if.else
 
 if.then:                                          ; preds = %entry
-  %AND = and i32 11, %sub
+  %and1 = and i32 11, %sub
   br label %ifend
 
 if.else:                                          ; preds = %entry
-  %UREM = urem i32 11, %0
+  %urem = urem i32 11, %0
   br label %ifend
 
 ifend:                                            ; preds = %if.else, %if.then
-  %rem = urem i32 11, %0
+  %phians = phi i32 [ %and1, %if.then ], [ %urem, %if.else ]
   %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %b)
   %1 = load i32* %b, align 4
-  %sub1 = sub i32 %1, 1
-  %and2 = and i32 %1, %sub1
-  %tempcmp03 = icmp eq i32 %and2, 0
-  br i1 %tempcmp03, label %if.then5, label %if.else6
+  %sub2 = sub i32 %1, 1
+  %and3 = and i32 %1, %sub2
+  %cmp0with4 = icmp eq i32 %and3, 0
+  br i1 %cmp0with4, label %if.then7, label %if.else8
 
-if.then5:                                         ; preds = %ifend
-  %AND7 = and i32 11, %sub1
-  br label %ifend4
+if.then7:                                         ; preds = %ifend
+  %and9 = and i32 11, %sub2
+  br label %ifend6
 
-if.else6:                                         ; preds = %ifend
-  %UREM8 = urem i32 11, %1
-  br label %ifend4
+if.else8:                                         ; preds = %ifend
+  %urem10 = urem i32 11, %1
+  br label %ifend6
 
-ifend4:                                           ; preds = %if.else6, %if.then5
-  %rem1 = urem i32 11, %1
-  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str1, i32 0, i32 0), i32 %rem, i32 %rem, i32 %rem1)
+ifend6:                                           ; preds = %if.else8, %if.then7
+  %phians5 = phi i32 [ %and9, %if.then7 ], [ %urem10, %if.else8 ]
+  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str1, i32 0, i32 0), i32 %phians, i32 %phians, i32 %phians5)
   ret i32 0
 }
 

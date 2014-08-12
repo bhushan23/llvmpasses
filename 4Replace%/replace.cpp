@@ -1,13 +1,9 @@
-#include "llvm/ADT/APFloat.h"
 #include "llvm/Pass.h"
 #include "llvm/PassAnalysisSupport.h"
 #include "llvm/IR/Function.h"
 #include "llvm/IR/BasicBlock.h"
 #include "llvm/IR/Module.h"
 #include "llvm/Support/raw_ostream.h"
-#include "llvm/Analysis/Dominators.h"
-#include "llvm/Support/CFG.h"
-#include "llvm/Analysis/LoopInfo.h"
 #include "llvm/Support/InstIterator.h"
 #include "llvm/IR/User.h"
 #include "llvm/IR/Constants.h"
@@ -28,41 +24,32 @@ namespace {
     class ReplaceMod : public FunctionPass{
         public:
             static char ID;
-            /*	virtual void getAnalysisUsage(AnalysisUsage &AU) const {
-
-                }*/
-
             ReplaceMod():FunctionPass(ID){}
 
             virtual bool runOnFunction(Function &F){
-                bool changed = false;
                 std::list<Instruction*> instToRemove; 
-                Value *subV = NULL;
                 for( inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I){
-                    //  errs() << "  " << I-> getOpcode() ;
-                    if( I->getOpcode() == 17 ){//18: opcode enum for srem
-                        //errs() << I->getOpcode() << "   " << I->getOpcodeName() << "  " << *(I->getOperand(0)) << " " << *(I->getOperand(1))<<"\n";
-                        Instruction *inst = &*I;     
-                        instToRemove.push_back(inst); 
-
+                    if( I->getOpcode() == Instruction::URem ){
+                        instToRemove.push_back(&*I); 
                     }
                 }
+
                 std::list<Instruction*>::iterator it,end;
+
                 for( it = instToRemove.begin(), end = instToRemove.end(); it != end; ++it){	
                     Instruction *inst = *it;
                     IRBuilder<> builder(inst);
                     Value *v1 = inst->getOperand(0);
                     Value *v2 = inst->getOperand(1);
-                    errs() << *v1  ;
+
                     if (ConstantInt* CI = dyn_cast<ConstantInt>(v2)) {
-                        errs() << "\nconst found";
                         APInt op_val = CI->getValue();
 
-                        if(op_val.isPowerOf2()){
+                        if( op_val.isPowerOf2() ){
+                            APInt modify = APInt( op_val.getBitWidth(),( 1 << op_val.countTrailingZeros() ) - 1,false);
 
-                            //errs() << "\n:::POWER 2 " << op_val.countTrailingZeros()  <<"  " << op_val.getBitWidth();	
-                            APInt modify = APInt(op_val.getBitWidth(),(1<<op_val.countTrailingZeros()) - 1,false);
                             if(ConstantInt* CI2 = dyn_cast<ConstantInt>(v2)){//First Operand is also constant
+
                                 APInt opcode1 = CI2->getValue();
                                 APInt result = opcode1 & modify;
                                 errs() << "ANS::"<<result.getLimitedValue();
@@ -77,120 +64,52 @@ namespace {
                                 Value *v1 = dyn_cast<Value>(CI);
                                 inst->setOperand(1,op2);
                                 inst->replaceAllUsesWith(BinaryOperator::Create(Instruction::And,v1,v2,Twine("ANDINST"),inst));
-                                changed = true;
-                                errs() << "setting ";			
-
                             }
-                        }	
-                    }else {
-                     
-                        errs() << "\nInserting If Else ";
+                        }
+
+                    }else {//Second argument is not Constant. Insert If Else Then 
+
                         uint64_t val = 1;
                         Constant* cTemp = ConstantInt::get(v2->getType(),val,false);
                         Value *vTemp = dyn_cast<Value>(cTemp);
-                        val = 0;
+                        val = 0; 
                         Constant* cZero = ConstantInt::get(v2->getType(),val,false);
 
-                        /* 
-                           BinaryOperator::Create(Instruction::Sub,v2,vTemp,Twine("Sub"),inst);
-                           Instruction *pinst = &*(--I);
-                           ++I;
-                           BinaryOperator::Create(Instruction::And,v2,pinst,Twine("And"),inst);
-                           */
- 
-                                              //BasicBlock* iffalse = BasicBlock::Create(getGlobalContext(),"if.else",&F);
-                        //BasicBlock* iftrue = BasicBlock::Create(getGlobalContext(),"if.ithen",&F);
-                        
-                        //F.getBasicBlockList().push_back(iftrue);
-                        //F.getBasicBlockList().push_back(iffalse); 
-                       
-                       //if(!subV)
-                            subV = builder.CreateSub(v2,vTemp,"sub");
-                        Value *andV = builder.CreateAnd(v2,subV,"and");
+                        Value* subV = builder.CreateSub(v2,vTemp,"sub");
+                        Value* andV = builder.CreateAnd(v2,subV,"and");
                         vTemp = dyn_cast<Value>(cZero);
-                        Value* equalVal = builder.CreateICmpEQ(andV,vTemp,"tempcmp0");
-                        //  builder.CreateCondBr(equalVal,iftrue,iffalse);
+                        Value* equalVal = builder.CreateICmpEQ(andV,vTemp,"cmp0with");
+                        PHINode *pNode = builder.CreatePHI(inst->getType(),2,"phians");  
 
-                       /* PHINode *PN = PHINode::Create, 2, "if.tmp",inst );
-                        PN->addIncoming(equalVal, iftrue);
-                        PN->addIncoming(equalVal, iffalse); 
-                        */
-                      BasicBlock* block = inst->getParent();
+                        BasicBlock* block = inst->getParent();
+                        BasicBlock* ifend = block->splitBasicBlock(dyn_cast<Instruction>(pNode),"ifend");                    
+                        BasicBlock* oldBlock = dyn_cast<Instruction>(equalVal)->getParent();
+                        Instruction* oldHead = oldBlock->getTerminator();
 
-                     // BasicBlock::iterator iter = *inst;
-                       BasicBlock* ifend = block->splitBasicBlock(inst,"ifend");                    
-                       BasicBlock* oldBlock = dyn_cast<Instruction>(equalVal)->getParent();
-                        Instruction *oldHead = oldBlock->getTerminator();
-                        errs() << "OLD VALUE : ";
-                        oldHead->dump();
- 
                         BasicBlock* iftrue = BasicBlock::Create(getGlobalContext(),"if.then",&F,ifend);
                         BasicBlock* iffalse = BasicBlock::Create(getGlobalContext(),"if.else",&F,ifend);
 
-                       BranchInst *newHead = BranchInst::Create(iftrue,iffalse,equalVal); 
-                       newHead->setDebugLoc(inst->getDebugLoc());
-                        errs() <<  "     NEW VALUE : ";
-                        newHead->dump();
-                        
-                       ReplaceInstWithInst(oldHead,newHead);
-                                              //ifend->removePredecessor(entryB,false);
-                         // Instruction* del = entryB->end();
-                      // del->eraseFromParent(); 
-                        // builder.SetInsertPoint(entryB);//dyn_cast<Instruction>(equalVal));
-                        //builder.CreateCondBr(equalVal,iftrue,iffalse);
-                         /*builder.SetInsertPoint(iftrue);
-                         builder.CreateBr(ifend);
-                         builder.SetInsertPoint(iffalse);
-                         builder.CreateBr(ifend);
-                        */
+                        BranchInst *newHead = BranchInst::Create(iftrue,iffalse,equalVal); 
+                        ReplaceInstWithInst(oldHead,newHead);
 
-
-                      builder.SetInsertPoint(iftrue);
-                       Value* oInst1 = builder.CreateAnd(v1,subV,"AND");    
+                        builder.SetInsertPoint(iftrue);
+                        Value* oInst1 = builder.CreateAnd(v1,subV,"and");    
                         builder.CreateBr(ifend);
+
                         builder.SetInsertPoint(iffalse);
-                        Value* oInst2 = builder.CreateURem(v1,v2,"UREM");
+                        Value* oInst2 = builder.CreateURem(v1,v2,"urem");
                         builder.CreateBr(ifend);
+
                         builder.SetInsertPoint(ifend);
-                        //PHINode* phiNode = builder.CreatePHI(inst->getType(),2,"phirem"); 
-                        //phiNode->addIncoming(oInst1,dyn_cast<Instruction>(oInst1)->getParent());
-                        //phiNode->addIncoming(oInst2,dyn_cast<Instruction>(oInst2)->getParent());
+                        pNode->addIncoming(oInst1, iftrue);
+                        pNode->addIncoming(oInst2, iffalse); 
 
-
-                    // builder.SetInsertPoint();
-                         
- 
-                                              /*block = inst->getParent();
-                        iter = *inst;
-                        BasicBlock* iffalse = block->splitBasicBlock(iter,"ifelse");
-                        */
-
-                        //BasicBlock* iftrue = BasicBlock::Create(getGlobalContext(),"if.then",&F);
-                        //BasicBlock* iffalse = BasicBlock::Create(getGlobalContext(),"if.else",&F);
-                        //BasicBlock* ifend = BasicBlock::Create(getGlobalContext(),"if.end",&F);
-                        F.dump(); 
-                        //BasicBlock* end = BasicBlock::Create(getGlobalContext(),"end",&F);
-                        //builder.SetInsertPoint(end);
-                        //builder.CreateRet(vTemp);
-                       /* builder.SetInsertPoint(iftrue);
-                        builder.CreateBr(ifend);
-                        builder.SetInsertPoint(iffalse);
-                        builder.CreateBr(ifend);
-                        builder.SetInsertPoint(ifend);
-                        builder.CreateRet(vTemp);
-                        //builder.CreateBr(end);
-
-                        builder.SetInsertPoint(inst);
-                        *///Value *lessthan = builder.CreateICmpULT(andV,vTemp,"cmp");
-                        //builder.CreateCondBr(lessthan,iftrue,iffalse);
-
-                        changed = true;
-errs() << "done  ";
+                        inst->replaceAllUsesWith(pNode); 
+                        inst->eraseFromParent();
                     }
 
-                    //inst->eraseFromParent();
                 }	
-                return changed;
+                return instToRemove.size();
             }
 
     };
