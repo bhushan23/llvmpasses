@@ -18,8 +18,8 @@ else
 LOADABLE_MODULE_OPTIONS=-shared
 endif
 
-PLUGIN=./replace.so
-PLUGIN_OBJECTS=../replace.o
+PLUGIN=./replacemodmul.so
+PLUGIN_OBJECTS=../replacemodmul.o
 ALL_OBJECTS=$(PLUGIN_OBJECTS)
 ALL_TARGETS=$(EXTRACT) $(FILTER) $(PLUGIN) $(PRINT) $(SIMPLIFY)
 

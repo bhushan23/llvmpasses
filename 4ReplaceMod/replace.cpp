@@ -28,8 +28,8 @@ namespace {
             /*
              * 1) Identify Instructions with UREM Opcode and add to removableInst
              * 2) Iterate through all removableInst
-             *      a) if 2ndOperand is Constant
-             *         i)   Calculate modified_2nd = 2ndOperand - 1 // e.g. 8 ==> 7 
+             *      a) if 2 nd Operand is Constant
+             *         i)   Calculate modified_2nd = 2nd Operand - 1 // e.g. 8 ==> 7 
              *         ii)  if 1st Operand is Constant then iii) else goto iv)
              *         iii) Calculate ans = 1stOperand % modified_2nd and replace all uses of UREM instruction with ans.
              *         iv)  Replace all uses UREM instruction with new AND Instruction 1stOperand and modified_2nd   
