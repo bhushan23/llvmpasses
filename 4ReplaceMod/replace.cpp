@@ -25,7 +25,30 @@ namespace {
         public:
             static char ID;
             ReplaceMod():FunctionPass(ID){}
-
+            /*
+             * 1) Identify Instructions with UREM Opcode and add to removableInst
+             * 2) Iterate through all removableInst
+             *      a) if 2ndOperand is Constant
+             *         i)   Calculate modified_2nd = 2ndOperand - 1 // e.g. 8 ==> 7 
+             *         ii)  if 1st Operand is Constant then iii) else goto iv)
+             *         iii) Calculate ans = 1stOperand % modified_2nd and replace all uses of UREM instruction with ans.
+             *         iv)  Replace all uses UREM instruction with new AND Instruction 1stOperand and modified_2nd   
+             *      b) 
+             *         i)   Insert SUB Instruction to calculate modified_2nd
+             *         ii)  Create AND Instruction on (modified_2nd,2ndOperand) and store in ANDVAL
+             *         iii) insert PHINode 
+             *         iv)  splitBasicBlock with Instruction PHINode and create ifend BB
+             *         v)   add if and else BB 
+             *         vi)  create BranchInst onTrue jmp to if BB otherwise else BB and 
+             *                     replace with Terminator Inst of BasicBlock containg ANDVAL //Spliting of BB adds branch instruction 
+             *         vii) insert AND instruction and jmp to ifend in if BB
+             *         viii)insert UREM instruction and jmp to ifend in else BB
+             *         ix)  add INCOMING nodes to PHINode of ifend BB
+             *         x)   Replace all uses of UREM Inst with PHINode
+             *      c) Erase Inst From Parent
+             * 3) return size of removableInst
+             *
+             */          
             virtual bool runOnFunction(Function &F){
                 std::list<Instruction*> instToRemove; 
                 for( inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I){
@@ -42,7 +65,7 @@ namespace {
                     Value *v1 = inst->getOperand(0);
                     Value *v2 = inst->getOperand(1);
 
-                    if (ConstantInt* CI = dyn_cast<ConstantInt>(v2)) {
+                    if (ConstantInt* CI = dyn_cast<ConstantInt>(v2)){//second operand is Constant
                         APInt op_val = CI->getValue();
 
                         if( op_val.isPowerOf2() ){
@@ -52,18 +75,13 @@ namespace {
 
                                 APInt opcode1 = CI2->getValue();
                                 APInt result = opcode1 & modify;
-                                errs() << "ANS::"<<result.getLimitedValue();
                                 Constant* op2 = ConstantInt::get(CI->getType(),result);
                                 Value* vop = dyn_cast<Value> (op2);
                                 inst->replaceAllUsesWith(vop);
                             }else{//First opcode is undef, Therefore Modify Instruction
-
-                                LLVMContext LC;
                                 Constant* op2 = ConstantInt::get(CI->getType(),modify);
                                 Value *v2 = dyn_cast<Value>(op2);
-                                Value *v1 = dyn_cast<Value>(CI);
-                                inst->setOperand(1,op2);
-                                inst->replaceAllUsesWith(BinaryOperator::Create(Instruction::And,v1,v2,Twine("andinst"),inst));
+                                inst->replaceAllUsesWith(builder.CreateAnd(v1,v2,"andinst"));
                             }
                         }
 

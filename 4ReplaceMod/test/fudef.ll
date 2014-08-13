@@ -1,4 +1,4 @@
-; ModuleID = '<stdin>'
+; ModuleID = 'test2.c'
 target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v64:64:64-v128:128:128-a0:0:64-s0:64:64-f80:128:128-n8:16:32:64-S128"
 target triple = "x86_64-unknown-linux-gnu"
 
@@ -9,41 +9,20 @@ target triple = "x86_64-unknown-linux-gnu"
 define i32 @main() #0 {
 entry:
   %a = alloca i32, align 4
+  %b = alloca i32, align 4
+  %c = alloca i32, align 4
+  store i32 16, i32* %b, align 4
   store i32 10, i32* %a, align 4
   %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([4 x i8]* @.str, i32 0, i32 0), i32* %a)
   %0 = load i32* %a, align 4
-  %sub = sub i32 16, 1
-  %and = and i32 16, %sub
-  %cmp0with = icmp eq i32 %and, 0
-  br i1 %cmp0with, label %if.then, label %if.else
-
-if.then:                                          ; preds = %entry
-  %and1 = and i32 %0, %sub
-  br label %ifend
-
-if.else:                                          ; preds = %entry
-  %urem = urem i32 %0, 16
-  br label %ifend
-
-ifend:                                            ; preds = %if.else, %if.then
-  %phians = phi i32 [ %and1, %if.then ], [ %urem, %if.else ]
-  %1 = load i32* %a, align 4
-  %sub2 = sub i32 16, 1
-  %and3 = and i32 16, %sub2
-  %cmp0with4 = icmp eq i32 %and3, 0
-  br i1 %cmp0with4, label %if.then7, label %if.else8
-
-if.then7:                                         ; preds = %ifend
-  %and9 = and i32 %1, %sub2
-  br label %ifend6
-
-if.else8:                                         ; preds = %ifend
-  %urem10 = urem i32 %1, 16
-  br label %ifend6
-
-ifend6:                                           ; preds = %if.else8, %if.then7
-  %phians5 = phi i32 [ %and9, %if.then7 ], [ %urem10, %if.else8 ]
-  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([6 x i8]* @.str1, i32 0, i32 0), i32 %phians, i32 %phians5)
+  %1 = load i32* %b, align 4
+  %rem = urem i32 %0, %1
+  store i32 %rem, i32* %c, align 4
+  %2 = load i32* %c, align 4
+  %3 = load i32* %a, align 4
+  %4 = load i32* %b, align 4
+  %rem1 = urem i32 %3, %4
+  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([6 x i8]* @.str1, i32 0, i32 0), i32 %2, i32 %rem1)
   ret i32 0
 }
 
