@@ -1,0 +1,4 @@
+make
+opt -mem2reg -load ./dotmaker.so -dotmaker < in.ll 2> err.ll
+#opt -mem2reg -load ./replace.so -replacemod < t6.ll -S -o out6.ll
+
