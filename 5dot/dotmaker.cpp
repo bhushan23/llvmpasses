@@ -14,6 +14,7 @@
 #include "llvm/ADT/GraphTraits.h"
 #include "fstream"
 #include "stdio.h"
+#include "llvm/Support/DOTGraphTraits.h"
 #include "llvm/Support/raw_ostream.h"
 using namespace llvm;
 
@@ -22,47 +23,37 @@ namespace {
     class dotmaker : public FunctionPass {   
         public:
             static char ID;
-           /* virtual void getAnalysisUsage(AnalysisUsage &au) const {
-                //   au.addRequired<CFG>();
-                //   au.addRequired<LoopInfo>();				
-            }*/
-
-
             dotmaker() : FunctionPass(ID){}
 
             virtual bool runOnFunction(Function &F){
                 bool flag=false;
                 errs() << "Processing Function: ";
                 std::string fileerr;
-                /*std::filebuf fb;
-                fb.open("graph.dot",std::ios::out);
-                std::ostream ost(&fb);
-*/
-                //raw_fd_ostream graphfile("graph.dot",fileerr,sys::fs::OpenFlags::F_Append); 
-                //FILE* dotFile = fopen("graph","w");
-                //int cnode = 0;
-               //fprintf(dotFile,"%s","digraph \"CFG for 'main' function\" {\n label=\"CFG for 'main' function\";\n");
-               errs()<<"CFG for 'main' function\" {\n label=\"CFG for 'main' function\";\n";
+                std::string Filename = "cfg." + F.getName().str() + ".dot";
+                errs() << "Writing '" << Filename << "'...";
+
+                std::string ErrorInfo;
+                raw_fd_ostream ost(Filename.c_str(), ErrorInfo, sys::fs::F_Excl );
+
+                ost <<"digraph \"CFG for 'main' function\" {\n label=\"CFG for 'main' function\";\n";
                 for(Function::iterator bbi = F.begin(), bbie = F.end(); bbi != bbie; ++bbi){
                     BasicBlock *BB = bbi;
-                    errs() << "\nNode" << BB << " [shape=record,label=\"{";
-                    BB->dump();
-                    errs() << "}\"];";
-                   /* for(BasicBlock::iterator it = BB->begin(), end = BB->end(); it != end; ++it){
-                        //fprintf(dotFile,"%s",);
-                    }*/ 
-
-                    //fprintf(dotFile,"%s%d%s","\nNode",cnode++,"[shape=record,label=");  
-                    //errs() << " Succc ";
+                    ost << "\nNode" << BB << " [shape=record,label=\"{";
+                    ost << BB->getName() << ":";
+                    for(BasicBlock::iterator it = BB->begin(), end = BB->end(); it != end; ++it){
+                        ost << "\\l";
+                        it->print(ost);
+                    } 
+                    ost << "}\"];";
                     for (succ_iterator SI = succ_begin(BB), E = succ_end(BB); SI != E;  ++SI) {
-                       BasicBlock *succN = *SI;
-                       //succN->dump();
-                       //errs()<<"--------------------";
-                       } 
+                        BasicBlock *succN = *SI;
+                        ost << "\n";
+                        ost <<"Node" << BB <<" -> "<<"Node" << succN <<";";
+                    } 
                     errs() << "END";
                 }
 
-                errs() << "}\n";
+                ost << "}\n";
                 return flag;
 
             }

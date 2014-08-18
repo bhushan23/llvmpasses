@@ -40,11 +40,12 @@ namespace {
                
                 std::string ErrorInfo;
                 raw_fd_ostream File(Filename.c_str(), ErrorInfo, sys::fs::F_Excl );
-                //GraphWriter<Function> gw(File, F,false);
+                //GraphWriter<Function> gw(File, (const Function*)&F,false);
                 //gw.writeGraph("Hello");
-                //errs() << 
+               //errs() << 
+               Twine twi("Main Fun");
                if (ErrorInfo.empty())
-                    WriteGraph(File, (const Function*)&F,false,"Main Function");
+                    WriteGraph(File, (const Function*)&F,true,twi);
                 else
                     errs() << "  error opening file for writing!";
                 errs() << "\n";
