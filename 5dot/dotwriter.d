@@ -1,4 +1,4 @@
-dotmaker.o: /home/bsonawane/llvmpasses/5dot/dotmaker.cpp \
+dotwriter.o: /home/bsonawane/llvmpasses/5dot/dotwriter.cpp \
  /usr/include/stdc-predef.h /home/bsonawane/bin/include/llvm/Pass.h \
  /home/bsonawane/bin/include/llvm/Support/Compiler.h \
  /home/bsonawane/bin/include/llvm/Config/llvm-config.h \
@@ -218,13 +218,11 @@ dotmaker.o: /home/bsonawane/llvmpasses/5dot/dotmaker.cpp \
  /home/bsonawane/bin/include/clang/AST/StmtNodes.inc \
  /home/bsonawane/bin/include/clang/Analysis/Support/BumpVector.h \
  /home/bsonawane/bin/include/llvm/ADT/Optional.h \
- /usr/include/c++/4.8/fstream /usr/include/c++/4.8/bits/codecvt.h \
- /usr/include/c++/4.8/cstdio /usr/include/libio.h \
+ /home/bsonawane/bin/include/llvm/Support/GraphWriter.h \
+ /home/bsonawane/bin/include/llvm/Support/DOTGraphTraits.h \
+ /home/bsonawane/bin/include/llvm/Support/Path.h /usr/include/libio.h \
  /usr/include/_G_config.h \
- /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
- /usr/include/x86_64-linux-gnu/c++/4.8/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/4.8/bits/c++io.h \
- /usr/include/c++/4.8/bits/fstream.tcc
+ /usr/include/x86_64-linux-gnu/bits/sys_errlist.h
 
 /usr/include/stdc-predef.h:
 
@@ -742,20 +740,14 @@ dotmaker.o: /home/bsonawane/llvmpasses/5dot/dotmaker.cpp \
 
 /home/bsonawane/bin/include/llvm/ADT/Optional.h:
 
-/usr/include/c++/4.8/fstream:
+/home/bsonawane/bin/include/llvm/Support/GraphWriter.h:
 
-/usr/include/c++/4.8/bits/codecvt.h:
+/home/bsonawane/bin/include/llvm/Support/DOTGraphTraits.h:
 
-/usr/include/c++/4.8/cstdio:
+/home/bsonawane/bin/include/llvm/Support/Path.h:
 
 /usr/include/libio.h:
 
 /usr/include/_G_config.h:
 
 /usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
-
-/usr/include/x86_64-linux-gnu/c++/4.8/bits/basic_file.h:
-
-/usr/include/x86_64-linux-gnu/c++/4.8/bits/c++io.h:
-
-/usr/include/c++/4.8/bits/fstream.tcc:
