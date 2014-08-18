@@ -198,8 +198,6 @@ dotmaker.o: /home/bsonawane/llvmpasses/5dot/dotmaker.cpp \
  /usr/include/c++/4.8/bits/stl_multiset.h \
  /home/bsonawane/bin/include/llvm/Support/CFG.h \
  /home/bsonawane/bin/include/llvm/IR/InstrTypes.h \
- /home/bsonawane/bin/include/llvm/Analysis/LoopInfo.h \
- /home/bsonawane/bin/include/llvm/ADT/DenseSet.h \
  /home/bsonawane/bin/include/clang/Analysis/CFG.h \
  /home/bsonawane/bin/include/clang/AST/Stmt.h \
  /home/bsonawane/bin/include/clang/AST/DeclGroup.h \
@@ -217,15 +215,7 @@ dotmaker.o: /home/bsonawane/llvmpasses/5dot/dotmaker.cpp \
  /usr/include/c++/4.8/functional \
  /home/bsonawane/bin/include/clang/AST/StmtNodes.inc \
  /home/bsonawane/bin/include/clang/Analysis/Support/BumpVector.h \
- /home/bsonawane/bin/include/llvm/ADT/Optional.h \
- /usr/include/c++/4.8/fstream /usr/include/c++/4.8/bits/codecvt.h \
- /usr/include/c++/4.8/cstdio /usr/include/libio.h \
- /usr/include/_G_config.h \
- /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
- /usr/include/x86_64-linux-gnu/c++/4.8/bits/basic_file.h \
- /usr/include/x86_64-linux-gnu/c++/4.8/bits/c++io.h \
- /usr/include/c++/4.8/bits/fstream.tcc \
- /home/bsonawane/bin/include/llvm/Support/DOTGraphTraits.h
+ /home/bsonawane/bin/include/llvm/ADT/Optional.h
 
 /usr/include/stdc-predef.h:
 
@@ -703,10 +693,6 @@ dotmaker.o: /home/bsonawane/llvmpasses/5dot/dotmaker.cpp \
 
 /home/bsonawane/bin/include/llvm/IR/InstrTypes.h:
 
-/home/bsonawane/bin/include/llvm/Analysis/LoopInfo.h:
-
-/home/bsonawane/bin/include/llvm/ADT/DenseSet.h:
-
 /home/bsonawane/bin/include/clang/Analysis/CFG.h:
 
 /home/bsonawane/bin/include/clang/AST/Stmt.h:
@@ -742,23 +728,3 @@ dotmaker.o: /home/bsonawane/llvmpasses/5dot/dotmaker.cpp \
 /home/bsonawane/bin/include/clang/Analysis/Support/BumpVector.h:
 
 /home/bsonawane/bin/include/llvm/ADT/Optional.h:
-
-/usr/include/c++/4.8/fstream:
-
-/usr/include/c++/4.8/bits/codecvt.h:
-
-/usr/include/c++/4.8/cstdio:
-
-/usr/include/libio.h:
-
-/usr/include/_G_config.h:
-
-/usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
-
-/usr/include/x86_64-linux-gnu/c++/4.8/bits/basic_file.h:
-
-/usr/include/x86_64-linux-gnu/c++/4.8/bits/c++io.h:
-
-/usr/include/c++/4.8/bits/fstream.tcc:
-
-/home/bsonawane/bin/include/llvm/Support/DOTGraphTraits.h:
