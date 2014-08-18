@@ -12,10 +12,10 @@
 #include "llvm/Support/raw_ostream.h"
 using namespace llvm;
 namespace {
-    class dotmaker : public FunctionPass {   
+    class DotMaker : public FunctionPass {   
         public:
             static char ID;
-            dotmaker() : FunctionPass(ID){}
+            DotMaker() : FunctionPass(ID){}
 
             virtual bool runOnFunction(Function &F){
                 std::string Filename = "cfg." + F.getName().str() + ".dot";
@@ -23,11 +23,10 @@ namespace {
                 raw_fd_ostream ost(Filename.c_str(), ErrorInfo, sys::fs::F_Excl );
 
                 ost <<"digraph \"CFG for 'main' function\" {\n label=\"CFG for 'main' function\";\n";
-                for(Function::iterator bbi = F.begin(), bbie = F.end(); bbi != bbie; ++bbi){
-                    BasicBlock *BB = bbi;
+                for (Function::iterator BB = F.begin(), bbie = F.end(); BB != bbie; ++BB){
                     ost << "\nNode" << BB << " [shape=record,label=\"{";
                     ost << BB->getName() << ":";
-                    for(BasicBlock::iterator it = BB->begin(), end = BB->end(); it != end; ++it){
+                    for (BasicBlock::iterator it = BB->begin(), end = BB->end(); it != end; ++it) {
                         ost << "\\l";
                         it->print(ost);
                     } 
@@ -37,7 +36,6 @@ namespace {
                         ost << "\n";
                         ost <<"Node" << BB <<" -> "<<"Node" << succN <<";";
                     } 
-                    errs() << "END";
                 }
 
                 ost << "}\n";
@@ -47,6 +45,6 @@ namespace {
     };
 }
 
-char dotmaker::ID = 0;
-static RegisterPass<dotmaker> X("dotmaker","Create Dot file from llvm IR",false,false);
+char DotMaker::ID = 0;
+static RegisterPass<DotMaker> X("dotmaker","Create Dot file from llvm IR",false,false);
 

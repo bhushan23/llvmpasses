@@ -1,18 +1,18 @@
 digraph "CFG for 'main' function" {
  label="CFG for 'main' function";
 
-Node0x42e7130 [shape=record,label="{entry:\l  %b = alloca i32, align 4\l  store i32 8, i32* %b, align 4\l  %0 = load i32* %b, align 4\l  %sub = sub i32 %0, 1\l  %and = and i32 %0, %sub\l  %cmp0with = icmp eq i32 %and, 0\l  br i1 %cmp0with, label %if.then, label %if.else}"];
-Node0x42e7130 -> Node0x42e7f30;
-Node0x42e7130 -> Node0x42e8020;
-Node0x42e7f30 [shape=record,label="{if.then:\l  %and1 = and i32 11, %sub\l  br label %ifend}"];
-Node0x42e7f30 -> Node0x42e8290;
-Node0x42e8020 [shape=record,label="{if.else:\l  %urem = urem i32 11, %0\l  br label %ifend}"];
-Node0x42e8020 -> Node0x42e8290;
-Node0x42e8290 [shape=record,label="{ifend:\l  %phians = phi i32 [ %and1, %if.then ], [ %urem, %if.else ]\l  %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %b)\l  %1 = load i32* %b, align 4\l  %sub2 = sub i32 %1, 1\l  %and3 = and i32 %1, %sub2\l  %cmp0with4 = icmp eq i32 %and3, 0\l  br i1 %cmp0with4, label %if.then7, label %if.else8}"];
-Node0x42e8290 -> Node0x42e8c90;
-Node0x42e8290 -> Node0x42e8d90;
-Node0x42e8c90 [shape=record,label="{if.then7:\l  %and9 = and i32 11, %sub2\l  br label %ifend6}"];
-Node0x42e8c90 -> Node0x42e8fa0;
-Node0x42e8d90 [shape=record,label="{if.else8:\l  %urem10 = urem i32 11, %1\l  br label %ifend6}"];
-Node0x42e8d90 -> Node0x42e8fa0;
-Node0x42e8fa0 [shape=record,label="{ifend6:\l  %phians5 = phi i32 [ %and9, %if.then7 ], [ %urem10, %if.else8 ]\l  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str1, i32 0, i32 0), i32 %phians, i32 %phians, i32 %phians5)\l  ret i32 0}"];}
+Node0x3148130 [shape=record,label="{entry:\l  %b = alloca i32, align 4\l  store i32 8, i32* %b, align 4\l  %0 = load i32* %b, align 4\l  %sub = sub i32 %0, 1\l  %and = and i32 %0, %sub\l  %cmp0with = icmp eq i32 %and, 0\l  br i1 %cmp0with, label %if.then, label %if.else}"];
+Node0x3148130 -> Node0x3148f30;
+Node0x3148130 -> Node0x3149020;
+Node0x3148f30 [shape=record,label="{if.then:\l  %and1 = and i32 11, %sub\l  br label %ifend}"];
+Node0x3148f30 -> Node0x3149290;
+Node0x3149020 [shape=record,label="{if.else:\l  %urem = urem i32 11, %0\l  br label %ifend}"];
+Node0x3149020 -> Node0x3149290;
+Node0x3149290 [shape=record,label="{ifend:\l  %phians = phi i32 [ %and1, %if.then ], [ %urem, %if.else ]\l  %call = call i32 (i8*, ...)* @__isoc99_scanf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32* %b)\l  %1 = load i32* %b, align 4\l  %sub2 = sub i32 %1, 1\l  %and3 = and i32 %1, %sub2\l  %cmp0with4 = icmp eq i32 %and3, 0\l  br i1 %cmp0with4, label %if.then7, label %if.else8}"];
+Node0x3149290 -> Node0x3149c90;
+Node0x3149290 -> Node0x3149d90;
+Node0x3149c90 [shape=record,label="{if.then7:\l  %and9 = and i32 11, %sub2\l  br label %ifend6}"];
+Node0x3149c90 -> Node0x3149fa0;
+Node0x3149d90 [shape=record,label="{if.else8:\l  %urem10 = urem i32 11, %1\l  br label %ifend6}"];
+Node0x3149d90 -> Node0x3149fa0;
+Node0x3149fa0 [shape=record,label="{ifend6:\l  %phians5 = phi i32 [ %and9, %if.then7 ], [ %urem10, %if.else8 ]\l  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str1, i32 0, i32 0), i32 %phians, i32 %phians, i32 %phians5)\l  ret i32 0}"];}
