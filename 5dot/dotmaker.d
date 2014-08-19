@@ -215,7 +215,8 @@ dotmaker.o: /home/bsonawane/llvmpasses/5dot/dotmaker.cpp \
  /usr/include/c++/4.8/functional \
  /home/bsonawane/bin/include/clang/AST/StmtNodes.inc \
  /home/bsonawane/bin/include/clang/Analysis/Support/BumpVector.h \
- /home/bsonawane/bin/include/llvm/ADT/Optional.h
+ /home/bsonawane/bin/include/llvm/ADT/Optional.h \
+ /home/bsonawane/bin/include/llvm/IR/Constants.h
 
 /usr/include/stdc-predef.h:
 
@@ -728,3 +729,5 @@ dotmaker.o: /home/bsonawane/llvmpasses/5dot/dotmaker.cpp \
 /home/bsonawane/bin/include/clang/Analysis/Support/BumpVector.h:
 
 /home/bsonawane/bin/include/llvm/ADT/Optional.h:
+
+/home/bsonawane/bin/include/llvm/IR/Constants.h:
