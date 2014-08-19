@@ -37,8 +37,6 @@ namespace {
                     } 
 
                     if (bI->getOpcode() == Instruction::Br && bI->getNumOperands() > 1){//Branch Instruction with more than 1 operand
-                        errs() << "Insert branch Inst";
-                        bI->dump();
                         ost<<"\\l|{<s0>True|<s1>False}}\"];";
                         succN = dyn_cast<BasicBlock>(bI->getOperand(2));  
 
@@ -54,7 +52,7 @@ namespace {
                         sucCnt = bI->getNumOperands();
 
                         ost << "\\l|{";
-                        ost << "<s0>def|";//def is alway there
+                        ost << "<s0>def|";//def is always present
                         for(i = 2; i < sucCnt - 2 ; i+=2){//display inside predecessor's block
                             ost << "<s" << i << ">";
                             if(ConstantInt* CI = dyn_cast<ConstantInt>(bI->getOperand(i))){
@@ -81,7 +79,7 @@ namespace {
 
                     }else{
                         ost << "}\"];";
-                        for (succ_iterator SI = succ_begin(BB), E = succ_end(BB); SI != E;  ++SI) {
+                        for (succ_iterator SI = succ_begin(BB), E = succ_end(BB); SI != E;  ++SI) {//do we really need this loop?
                             succN = *SI;
                             ost << "\n";
                             ost <<"Node" << BB <<" -> "<<"Node" << succN <<";";
