@@ -19,9 +19,21 @@ int main(){
             printf("Its Zero");
             break;
         default:
-        printf("Its Zero");
-        break;
+            printf("Its Zero");
+            break;
 
     }
-    
+    if(i == 0){
+
+
+    }else if ( i == 5){
+
+
+
+    }
+
+
+    if(i == 4){
+
+    }    
 }
